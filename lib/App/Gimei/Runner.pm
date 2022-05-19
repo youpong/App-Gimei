@@ -30,15 +30,17 @@ sub execute {
 
         foreach my $arg (@args) {
             my @tokens = split /:/, $arg;
-            #say join ',', @tokens;
-            my $result;
-            if ($tokens[0] eq 'name') {
-                # say $tokens[1];
-                my $call = $name->can($tokens[1]);
-                $result = $name->$call();
-                #$result = $name->$tokens[1]();
+
+            my $obj;
+            if (!$tokens[0] || $tokens[0] eq 'name') {
+                $obj = $name;
+            } elsif ($tokens[0] eq 'address') {
+                $obj = $address;
+            } else {
+                # Error: unknown word_type
             }
-            say $result;
+            my $call = $obj->can($tokens[1] // "kanji"); # or Error: unkown ...
+            say $obj->$call();
         }
     }
 }
