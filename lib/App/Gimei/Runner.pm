@@ -35,21 +35,35 @@ sub execute {
         foreach my $arg (@args) {
             my @tokens = split /:/, $arg;
 
-            my $obj;
-            if (!$tokens[0] || $tokens[0] eq 'name') {
-                if ($tokens[1] && $tokens[1] eq 'family') {
-                    $obj = $name->family;
-                    $tokens[1] = 'kanji';
+            my $word;
+            my $token = shift @tokens || 'name';
+            if ($token eq 'name') {
+                $token = shift @tokens || '';
+                if ($token eq 'family') {
+                    $word = $name->family;
+                } elsif ($token eq 'given') {
+                    $word = $name->given;
                 } else {
-                    $obj = $name;
+                    unshift @tokens, $token;
+                    $word = $name;
                 }
-            } elsif ($tokens[0] eq 'address') {
-                $obj = $address;
+            } elsif ($token eq 'address') {
+                $token = shift @tokens || '';
+                if ($token eq 'prefecture') {
+                    $word = $address->prefecture;
+                } elsif ($token eq 'town') {
+                    $word = $address->town;
+                } elsif ($token eq 'city') {
+                    $word = $address->city;
+                } else {
+                    unshift @tokens, $token;
+                    $word = $address;
+                }
             } else {
-                # Error: unknown word_type
+                say "Error: unknown word_type";  exit 2;
             }
-            my $call = $obj->can($tokens[1] // "kanji"); # or Error: unkown ...
-            say $obj->$call();
+            my $call = $word->can(shift @tokens ||  "kanji") or say "Error: unkown rendering";
+            say $word->$call();
         }
     }
 }
