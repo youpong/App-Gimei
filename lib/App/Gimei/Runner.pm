@@ -24,6 +24,10 @@ sub execute {
 
     #    push @commands, @ARGV;
 
+    if (!@args) {
+        push @args, 'name:kanji';
+    }
+
     foreach (1..1) {
         my $name = Data::Gimei::Name->new();
         my $address = Data::Gimei::Address->new();
@@ -33,7 +37,12 @@ sub execute {
 
             my $obj;
             if (!$tokens[0] || $tokens[0] eq 'name') {
-                $obj = $name;
+                if ($tokens[1] && $tokens[1] eq 'family') {
+                    $obj = $name->family;
+                    $tokens[1] = 'kanji';
+                } else {
+                    $obj = $name;
+                }
             } elsif ($tokens[0] eq 'address') {
                 $obj = $address;
             } else {
