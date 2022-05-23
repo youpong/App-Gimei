@@ -38,7 +38,7 @@ sub execute {
     }
 
     if ($help) {
-        say "help";
+        system "perldoc", "App::Gimei";
         exit 0;
     }
 
