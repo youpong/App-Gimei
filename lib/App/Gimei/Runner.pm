@@ -21,9 +21,11 @@ sub execute {
     );
 
     my $n = 1;
+    my $sep = ', ';
     $p->getoptions(
                    #"h|help" =>
                    "n=i" => \$n,
+                   "sep=s" => \$sep,
     );
 
     @args = @ARGV;
@@ -72,7 +74,7 @@ sub execute {
             my $call = $word->can(shift @tokens ||  "kanji") or say "Error: unkown rendering";
             push @results, $word->$call();
         }
-        say join ', ', @results;
+        say join $sep, @results;
     }
 }
 1;
