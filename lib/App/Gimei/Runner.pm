@@ -14,13 +14,19 @@ use Class::Tiny {
 sub execute {
     my ($self, @args) = @_;
 
+    local @ARGV = @args;
+
     my $p = Getopt::Long::Parser->new(
         config => [ "no_ignore_case" ],
     );
 
+    my $n = 1;
     $p->getoptions(
-        #"h|help" => 
+                   #"h|help" =>
+                   "n=i" => \$n,
     );
+
+    @args = @ARGV;
 
     #    push @commands, @ARGV;
 
@@ -28,7 +34,7 @@ sub execute {
         push @args, 'name:kanji';
     }
 
-    foreach (1..1) {
+    foreach (1..$n) {
         my $name = Data::Gimei::Name->new();
         my $address = Data::Gimei::Address->new();
 
