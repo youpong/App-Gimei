@@ -5,6 +5,8 @@ use v5.22;
 binmode STDOUT, ":utf8";
 
 use Getopt::Long;
+
+use App::Gimei;
 use Data::Gimei;
 
 use Class::Tiny {
@@ -22,11 +24,23 @@ sub execute {
 
     my $n = 1;
     my $sep = ', ';
+    my ($help, $version);
     $p->getoptions(
-                   #"h|help" =>
-                   "n=i" => \$n,
-                   "sep=s" => \$sep,
+        "h|help"    => \$help,
+        "v|version" => \$version,
+        "n=i"       => \$n,
+        "sep=s"     => \$sep,
     );
+
+    if ($version) {
+        say "$App::Gimei::VERSION";
+        exit 0;
+    }
+
+    if ($help) {
+        say "help";
+        exit 0;
+    }
 
     @args = @ARGV;
 
