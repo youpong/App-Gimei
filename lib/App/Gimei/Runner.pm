@@ -38,6 +38,7 @@ sub execute {
         my $name = Data::Gimei::Name->new();
         my $address = Data::Gimei::Address->new();
 
+        my @results;
         foreach my $arg (@args) {
             my @tokens = split /:/, $arg;
 
@@ -69,8 +70,9 @@ sub execute {
                 say "Error: unknown word_type";  exit 2;
             }
             my $call = $word->can(shift @tokens ||  "kanji") or say "Error: unkown rendering";
-            say $word->$call();
+            push @results, $word->$call();
         }
+        say join ', ', @results;
     }
 }
 1;
