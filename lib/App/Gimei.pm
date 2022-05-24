@@ -12,26 +12,57 @@ __END__
 
 =head1 NAME
 
-App::Gimei - It's new $module
+App::Gimei - CLI for Data::Gimei
 
 =head1 SYNOPSIS
 
-    use App::Gimei;
+    > gimei [OPTIONS] [ARGS]
+
+    > gimei
+    松島 孝太
+    > gimei name:kanji name:katakana
+    谷川 加愛, タニガワ クレア
+    > gimei -sep '/' address:prefecture-kanji address:town-kanji
+    埼玉県/桜ケ丘町
+    > gimei -n 3 name name:hiragana
+    山本 公史, やまもと ひろし
+    久保田 大志, くぼた たいし
+    堀口 光太郎, ほりぐち こうたろう
+
+Omitting ARGS is equivalent to specifying name:kanji.
+
+=head2 OPTIONS
+
+    -sep string
+        specify string used to separate fields(default: ", ").
+    -n number
+        display number record(s).
+    -h|help
+        display usage and exit.
+    -v|version
+        display version and exit.
+
+=head2 ARGS
+
+    [WORD_TYPE] [: WORD_SUB_TYPE] [- RENDERING]
+
+    WORD_TYPE:     'name'   or 'address'
+    WORD_SUB_TYPE: 'family' or 'given'
+                 | 'prefecture', 'city' or 'town'
+    RENDERING:     'kanji', 'hiragana', 'katakana' or 'romaji'
+    *warn* WORD_TYPE address does not support RENDERING romaji.
 
 =head1 DESCRIPTION
 
-App::Gimei is ...
+App::Gimei is CLI for Data::Gimei generates fake data that people's name in Japanese.
 
 =head1 LICENSE
 
-Copyright (C) NAKAJIMA Yusaku.
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+MIT
 
 =head1 AUTHOR
 
-NAKAJIMA Yusaku E<lt>yupong7@gmail.comE<gt>
+NAKAJIMA Yusaku E<lt>youpong@cpan.orgE<gt>
 
 =cut
 

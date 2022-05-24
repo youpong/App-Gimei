@@ -1,12 +1,12 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "CLI for Data::Gimei",
    "author" : [
-      "NAKAJIMA Yusaku <yupong7@gmail.com>"
+      "NAKAJIMA Yusaku <youpong@cpan.org>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.1.14, CPAN::Meta::Converter version 2.150010",
    "license" : [
-      "perl_5"
+      "mit"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -42,7 +42,9 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008001"
+            "Data::Gimei" : "v0.0.7",
+            "Getopt::Long" : "0",
+            "perl" : "v5.22.0"
          }
       },
       "test" : {
@@ -52,8 +54,22 @@
       }
    },
    "release_status" : "unstable",
-   "version" : "0.01",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/youpong/App-Gimei/issues"
+      },
+      "homepage" : "https://github.com/youpong/App-Gimei",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/youpong/App-Gimei.git",
+         "web" : "https://github.com/youpong/App-Gimei"
+      }
+   },
+   "version" : "v0.0.1",
    "x_authority" : "cpan:YOUPONG",
+   "x_contributors" : [
+      "NAKAJIMA Yusaku <yupong7@gmail.com>"
+   ],
    "x_serialization_backend" : "JSON::PP version 4.02",
    "x_static_install" : 1
 }
