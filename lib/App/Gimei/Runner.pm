@@ -77,7 +77,7 @@ sub execute_tokens {
     my ($tokens_ref, $name, $address) = @_;
     my ($word_type, $word, $token);
 
-    $token = shift @$tokens_ref || 'name';
+    $token = shift @$tokens_ref // 'name';
     if ($token eq 'name') {
         $word_type = 'name';
         $word = subtype_name($tokens_ref, $name);
@@ -85,7 +85,8 @@ sub execute_tokens {
         $word_type = 'address';
         $word = subtype_address($tokens_ref, $address);
     } else {
-        say "Error: unknown word_type";  exit 2;
+        say "Error: unknown word_type";
+        exit 2;
     }
 
     return render($tokens_ref, $word_type, $word);
@@ -94,9 +95,9 @@ sub execute_tokens {
 sub subtype_name {
     my ($tokens_ref, $word) = @_;
 
-    my $token = shift @$tokens_ref || '';
+    my $token = shift @$tokens_ref // '';
     if ($token eq 'family' || $token eq 'given') {
-        $word = $word->$token; # WORD_SUBTYPE(name)
+        $word = $word->$token;
     } else {
         unshift @$tokens_ref, $token;
     }
@@ -107,9 +108,9 @@ sub subtype_name {
 sub subtype_address {
     my ($tokens_ref, $word) = @_;
 
-    my $token = shift @$tokens_ref || '';
+    my $token = shift @$tokens_ref // '';
     if ($token eq 'prefecture' || $token eq 'city' || $token eq 'town') {
-        $word = $word->$token; # WORD_SUBTYPE(address)
+        $word = $word->$token;
     } else {
         unshift @$tokens_ref, $token;
     }
@@ -121,7 +122,7 @@ sub subtype_address {
 sub render {
     my ($tokens_ref, $word_type, $word) = @_;
 
-    my $token = shift @$tokens_ref ||  "kanji";
+    my $token = shift @$tokens_ref //  "kanji";
     my $call = $word->can($token);
     if (!$call ||
         ( $word_type eq 'address' && $token eq 'romaji')) {
