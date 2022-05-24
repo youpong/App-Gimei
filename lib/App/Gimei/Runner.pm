@@ -60,7 +60,8 @@ sub execute {
 
         my @results;
         foreach my $arg (@args) {
-            push @results, execute_arg($arg, $name, $address);
+            my @tokens = split(/:/, $arg);
+            push @results, execute_tokens(\@tokens, $name, $address);
         }
 
         say join $opts{sep}, @results;
@@ -72,40 +73,63 @@ sub execute {
 # WORD_SUBTYPE(name):    'family'     | 'given'
 # WORD_SUBTYPE(address): 'prefecture' | 'city'     | 'town'
 # RENDERING:             'kanji'      | 'hiragana' | 'katakana' | 'romaji'
-sub execute_arg {
-    my ($arg, $name, $address) = @_;
+sub execute_tokens {
+    my ($tokens_ref, $name, $address) = @_;
+    my ($word_type, $word, $token);
 
-    my @tokens = split /:/, $arg;
-
-    my $word;
-    my $token = shift @tokens || 'name';
-    # WORD_TYPE(default: 'name')
+    $token = shift @$tokens_ref || 'name';
     if ($token eq 'name') {
-        $word = $name;             # WORD_TYPE = 'name'
-
-        $token = shift @tokens || '';
-        if ($token eq 'family' || $token eq 'given') {
-            $word = $word->$token; # WORD_SUBTYPE(name)
-        } else {
-            unshift @tokens, $token;
-        }
+        $word_type = 'name';
+        $word = subtype_name($tokens_ref, $name);
     } elsif ($token eq 'address') {
-        $word = $address;          # WORD_TYPE = 'address'
-
-        $token = shift @tokens || '';
-        if ($token eq 'prefecture' || $token eq 'city' || $token eq 'town') {
-            $word = $word->$token; # WORD_SUBTYPE(address)
-        } else {
-            unshift @tokens, $token;
-        }
+        $word_type = 'address';
+        $word = subtype_address($tokens_ref, $address);
     } else {
         say "Error: unknown word_type";  exit 2;
     }
 
-    # RENDERING(default: 'kanji')
-    $token = shift @tokens ||  "kanji";
-    my $call = $word->can($token) or say "Error: unkown rendering";
-    return $word->$call();
+    return render($tokens_ref, $word_type, $word);
+}
+
+sub subtype_name {
+    my ($tokens_ref, $word) = @_;
+
+    my $token = shift @$tokens_ref || '';
+    if ($token eq 'family' || $token eq 'given') {
+        $word = $word->$token; # WORD_SUBTYPE(name)
+    } else {
+        unshift @$tokens_ref, $token;
+    }
+
+    return $word;
+}
+
+sub subtype_address {
+    my ($tokens_ref, $word) = @_;
+
+    my $token = shift @$tokens_ref || '';
+    if ($token eq 'prefecture' || $token eq 'city' || $token eq 'town') {
+        $word = $word->$token; # WORD_SUBTYPE(address)
+    } else {
+        unshift @$tokens_ref, $token;
+    }
+
+    return $word;
+}
+
+# romaji not supported in WORD_TYPE = 'address'
+sub render {
+    my ($tokens_ref, $word_type, $word) = @_;
+
+    my $token = shift @$tokens_ref ||  "kanji";
+    my $call = $word->can($token);
+    if (!$call ||
+        ( $word_type eq 'address' && $token eq 'romaji')) {
+        say "Error: unkown rendering";
+        exit 2;
+    }
+
+    return  $word->$call();
 }
 
 1;
