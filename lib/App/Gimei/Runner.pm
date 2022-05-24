@@ -64,7 +64,7 @@ sub execute {
 
         my @results;
         foreach my $arg (@args) {
-            my @tokens = split(/:/, $arg);
+            my @tokens = split(/[-:]/, $arg);
             push @results, execute_tokens(\@tokens, $name, $address);
         }
 
@@ -85,8 +85,8 @@ sub execute_tokens {
     my ($tokens_ref, $name, $address) = @_;
     my ($word_type, $word, $token);
 
-    $token = shift @$tokens_ref // 'name';
-    if ($token eq 'name') {
+    $token = shift @$tokens_ref;
+    if (!$token || $token eq 'name') {
         $word_type = 'name';
         $word = subtype_name($tokens_ref, $name);
     } elsif ($token eq 'address') {
@@ -101,12 +101,18 @@ sub execute_tokens {
 
 sub subtype_name {
     my ($tokens_ref, $word) = @_;
+    my ($token, $subtype, $call, $method);
 
-    my $token = shift @$tokens_ref // '';
-    if ($token eq 'family' || $token eq 'given') {
-        $word = $word->$token;
-    } else {
-        unshift @$tokens_ref, $token;
+    my %map = ( 'family' => 'family',
+                'last'   => 'family',
+                'given'  => 'given',
+                'first'  => 'given' );
+
+    $token = @$tokens_ref[0] // '';
+    if ($method = $map{$token} ) {
+        shift @$tokens_ref;
+        $call = $word->can($method) or die "system err";
+        $word = $word->$call();
     }
 
     return $word;
@@ -115,11 +121,12 @@ sub subtype_name {
 sub subtype_address {
     my ($tokens_ref, $word) = @_;
 
-    my $token = shift @$tokens_ref // '';
+    my $token = @$tokens_ref[0] // '';
     if ($token eq 'prefecture' || $token eq 'city' || $token eq 'town') {
-        $word = $word->$token;
-    } else {
-        unshift @$tokens_ref, $token;
+        shift @$tokens_ref;
+        my $call = $word->can($token);
+        die "system error" if (!$call);
+        $word = $word->$call();
     }
 
     return $word;
@@ -129,12 +136,18 @@ sub subtype_address {
 sub render {
     my ($tokens_ref, $word_type, $word) = @_;
 
-    my $token = shift @$tokens_ref //  "kanji";
-    my $call = $word->can($token);
-    if (!$call ||
-        ( $word_type eq 'address' && $token eq 'romaji')) {
-        die "Error: unkown rendering: $token\n";
+    my $token = @$tokens_ref[0];
+    if (!$token || $token eq 'name') {
+        $token = "kanji";
     }
+
+    if ( $token eq 'romaji' &&
+         $word_type eq 'address' ) {
+        die "Error: unkown subtype or rendering: $token\n";
+    }
+
+    my $call = $word->can($token);
+    die "Error: unkown subtype or rendering: $token\n" if (!$call);
 
     return  $word->$call();
 }
