@@ -13,82 +13,91 @@ use Class::Tiny {
     #verbose => undef,
 };
 
-sub execute {
-    my ($self, @args) = @_;
+sub parse_option {
+    my ($self, $args_ref, $opts_ref) = @_;
 
-    local @ARGV = @args;
+    $opts_ref->{n} = 1;
+    $opts_ref->{sep} = ', ';
 
     my $p = Getopt::Long::Parser->new(
         config => [ "no_ignore_case" ],
     );
 
-    my $n = 1;
-    my $sep = ', ';
-    my ($help, $version);
-    $p->getoptions(
-        "h|help"    => \$help,
-        "v|version" => \$version,
-        "n=i"       => \$n,
-        "sep=s"     => \$sep,
+    local $SIG{__WARN__} = sub { die "$_[0]" };
+    my $err = $p->getoptionsfromarray(
+        $args_ref,
+        $opts_ref,
+        "help|h",
+        "version|v",
+        "n=i",
+        "sep=s",
     );
+}
 
-    if ($version) {
+sub execute {
+    my ($self, @args) = @_;
+
+    my %opts;
+    $self->parse_option(\@args, \%opts);
+
+    if ($opts{version}) {
         say "$App::Gimei::VERSION";
         exit 0;
     }
 
-    if ($help) {
+    if ($opts{help}) {
         system "perldoc", "App::Gimei";
         exit 0;
     }
-
-    @args = @ARGV;
-
-    #    push @commands, @ARGV;
 
     if (!@args) {
         push @args, 'name:kanji';
     }
 
-    foreach (1..$n) {
+    foreach (1 .. $opts{n}) {
         my $name = Data::Gimei::Name->new();
         my $address = Data::Gimei::Address->new();
 
         my @results;
         foreach my $arg (@args) {
+            # ARG:                   [WORD_TYPE] [':' WORD_SUB_TYPE] [':' RENDERING]
+            # WORD_TYPE:             'name'       | 'address'
+            # WORD_SUBTYPE(name):    'family'     | 'given'
+            # WORD_SUBTYPE(address): 'prefecture' | 'city'     | 'town'
+            # RENDERING:             'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+
             my @tokens = split /:/, $arg;
 
             my $word;
             my $token = shift @tokens || 'name';
+            # WORD_TYPE(default: 'name')
             if ($token eq 'name') {
+                $word = $name;             # WORD_TYPE = 'name'
+
                 $token = shift @tokens || '';
-                if ($token eq 'family') {
-                    $word = $name->family;
-                } elsif ($token eq 'given') {
-                    $word = $name->given;
+                if ($token eq 'family' || $token eq 'given') {
+                    $word = $word->$token; # WORD_SUBTYPE(name)
                 } else {
                     unshift @tokens, $token;
-                    $word = $name;
                 }
             } elsif ($token eq 'address') {
+                $word = $address;          # WORD_TYPE = 'address'
+
                 $token = shift @tokens || '';
-                if ($token eq 'prefecture') {
-                    $word = $address->prefecture;
-                } elsif ($token eq 'town') {
-                    $word = $address->town;
-                } elsif ($token eq 'city') {
-                    $word = $address->city;
+                if ($token eq 'prefecture' || $token eq 'city' || $token eq 'town') {
+                    $word = $word->$token; # WORD_SUBTYPE(address)
                 } else {
                     unshift @tokens, $token;
-                    $word = $address;
                 }
             } else {
                 say "Error: unknown word_type";  exit 2;
             }
+            # RENDERING(default: 'kanji')
             my $call = $word->can(shift @tokens ||  "kanji") or say "Error: unkown rendering";
             push @results, $word->$call();
         }
-        say join $sep, @results;
+
+        say join $opts{sep}, @results;
     }
 }
 1;
