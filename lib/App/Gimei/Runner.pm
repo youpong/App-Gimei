@@ -13,6 +13,10 @@ use Class::Tiny {
     #verbose => undef,
 };
 
+#
+# methods ...
+#
+
 sub parse_option {
     my ($self, $args_ref, $opts_ref) = @_;
 
@@ -23,7 +27,7 @@ sub parse_option {
         config => [ "no_ignore_case" ],
     );
 
-    local $SIG{__WARN__} = sub { die "$_[0]" };
+    local $SIG{__WARN__} = sub { die "Error: $_[0]" };
     my $err = $p->getoptionsfromarray(
         $args_ref,
         $opts_ref,
@@ -68,6 +72,10 @@ sub execute {
     }
 }
 
+#
+# functions ...
+#
+
 # ARG:                   [WORD_TYPE] [':' WORD_SUB_TYPE] [':' RENDERING]
 # WORD_TYPE:             'name'       | 'address'
 # WORD_SUBTYPE(name):    'family'     | 'given'
@@ -85,8 +93,7 @@ sub execute_tokens {
         $word_type = 'address';
         $word = subtype_address($tokens_ref, $address);
     } else {
-        say "Error: unknown word_type";
-        exit 2;
+        die "Error: unknown word_type: $token\n";
     }
 
     return render($tokens_ref, $word_type, $word);
@@ -126,8 +133,7 @@ sub render {
     my $call = $word->can($token);
     if (!$call ||
         ( $word_type eq 'address' && $token eq 'romaji')) {
-        say "Error: unkown rendering";
-        exit 2;
+        die "Error: unkown rendering: $token\n";
     }
 
     return  $word->$call();
