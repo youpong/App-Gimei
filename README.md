@@ -44,6 +44,26 @@ Omitting ARGS is equivalent to specifying name:kanji.
 
 App::Gimei is CLI for Data::Gimei generates fake data that people's name in Japanese.
 
+# INSTALL
+
+This app is available on CPAN. You can install this app by following the step below.
+
+    $ cpanm App::Gimei
+
+# DOCUMENTATION
+
+After installing, you can find documentation for this module with the perldoc command.
+
+    $ perldoc App::Gimei
+
+You can also look for information at:
+
+    GitHub Repository (report bugs here)
+        https://github.com/youpong/App-Gimei
+
+    Search CPAN
+        https://metacpan.org/pod/App::Gimei
+
 # LICENSE
 
 MIT

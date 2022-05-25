@@ -9,9 +9,9 @@ use Getopt::Long;
 use App::Gimei;
 use Data::Gimei;
 
-use Class::Tiny {
-    #verbose => undef,
-};
+use Class::Tiny qw(
+#    test
+);
 
 #
 # methods ...
@@ -59,15 +59,15 @@ sub execute {
     }
 
     foreach (1 .. $opts{n}) {
-        my $name    = Data::Gimei::Name->new();
-        my $male    = Data::Gimei::Name->new(gender => 'male');
-        my $female  = Data::Gimei::Name->new(gender => 'female');
-        my $address = Data::Gimei::Address->new();
+        my %words = ( name    => Data::Gimei::Name->new(),
+                      male    => Data::Gimei::Name->new(gender => 'male'),
+                      female  => Data::Gimei::Name->new(gender => 'female'),
+                      address => Data::Gimei::Address->new() );
 
         my @results;
         foreach my $arg (@args) {
             my @tokens = split(/[-:]/, $arg);
-            push @results, execute_tokens(\@tokens, $name, $male, $female, $address);
+            push @results, execute_tokens(\@tokens, \%words);
         }
 
         say join $opts{sep}, @results;
@@ -84,22 +84,16 @@ sub execute {
 # WORD_SUBTYPE(address): 'prefecture' | 'city'     | 'town'
 # RENDERING:             'kanji'      | 'hiragana' | 'katakana' | 'romaji'
 sub execute_tokens {
-    my ($tokens_ref, $name, $male, $female, $address ) = @_;
+    my ($tokens_ref, $words_ref ) = @_;
     my ($word_type, $word, $token);
 
     $token = shift @$tokens_ref;
-    if (!$token || $token eq 'name') {
+    if ($token eq 'name' || $token eq 'male' || $token eq 'female') {
         $word_type = 'name';
-        $word = subtype_name($tokens_ref, $name);
-    } elsif ($token eq 'male') {
-        $word_type = 'name';
-        $word = subtype_name($tokens_ref, $male);
-    } elsif ($token eq 'female') {
-        $word_type = 'name';
-        $word = subtype_name($tokens_ref, $female);
+        $word = subtype_name($tokens_ref, $words_ref->{$token});
     } elsif ($token eq 'address') {
         $word_type = 'address';
-        $word = subtype_address($tokens_ref, $address);
+        $word = subtype_address($tokens_ref, $words_ref->{$token});
     } else {
         die "Error: unknown word_type: $token\n";
     }
