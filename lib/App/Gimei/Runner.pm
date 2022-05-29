@@ -9,9 +9,7 @@ use Getopt::Long;
 use App::Gimei;
 use Data::Gimei;
 
-use Class::Tiny qw(
-#    test
-);
+use Class::Tiny;# qw( test );
 
 #
 # methods ...
@@ -46,12 +44,12 @@ sub execute {
 
     if ($opts{version}) {
         say "$App::Gimei::VERSION";
-        exit 0;
+        return 0;
     }
 
     if ($opts{help}) {
         system "perldoc", "App::Gimei";
-        exit 0;
+        return 0;
     }
 
     if (!@args) {
@@ -72,6 +70,8 @@ sub execute {
 
         say join $opts{sep}, @results;
     }
+
+    return 0;
 }
 
 #
