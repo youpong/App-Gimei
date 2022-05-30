@@ -33,11 +33,11 @@ my $app = t::CLI->new;
     ok   !$app->stderr;
     ok   !$app->error_message;
 
-    $app->run('female:unknwon_subtype');
+    $app->run('female:unknown');
     is   $app->exit_code, 255;
     ok   !$app->stdout;
     ok   !$app->stderr;
-    is $app->error_message, "Error: unkown subtype or rendering: unknown\n";
+    is $app->error_message, "Error: unknown subtype or rendering: unknown\n";
 }
 
 { #subtype_address
@@ -59,11 +59,11 @@ my $app = t::CLI->new;
     ok   !$app->stderr;
     ok   !$app->error_message;
 
-    $app->run('address:unknwon_subtype');
+    $app->run('address:unknown');
     is   $app->exit_code, 255;
     ok   !$app->stdout;
     ok   !$app->stderr;
-    is $app->error_message, "Error: unkown subtype or rendering: unknown\n";
+    is $app->error_message, "Error: unknown subtype or rendering: unknown\n";
 }
 
 done_testing;

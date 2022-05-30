@@ -145,11 +145,11 @@ sub render {
 
     if ( $token eq 'romaji' &&
          $word_type eq 'address' ) {
-        die "Error: unkown subtype or rendering: $token\n";
+        die "Error: unknown subtype or rendering: $token\n";
     }
 
     my $call = $word->can($token);
-    die "Error: unkown subtype or rendering: $token\n" if (!$call);
+    die "Error: unknown subtype or rendering: $token\n" if (!$call);
 
     return  $word->$call();
 }

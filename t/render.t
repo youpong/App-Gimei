@@ -49,13 +49,13 @@ my $app = t::CLI->new;
     is   $app->exit_code, 255;
     ok   !$app->stdout;
     ok   !$app->stderr;
-    is $app->error_message, "Error: unkown subtype or rendering: romaji\n";
+    is $app->error_message, "Error: unknown subtype or rendering: romaji\n";
 
     $app->run('address:prefecture:romaji');
     is   $app->exit_code, 255;
     ok   !$app->stdout;
     ok   !$app->stderr;
-    is $app->error_message, "Error: unkown subtype or rendering: romaji\n";
+    is $app->error_message, "Error: unknown subtype or rendering: romaji\n";
 }
 
 done_testing;
