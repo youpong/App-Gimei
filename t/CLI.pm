@@ -1,7 +1,9 @@
 package t::CLI;
-use strict; use warnings;
+use warnings;
+use v5.22;
+
 #use base qw(Exporter);
-#our @EXPORT = qw(run);
+#our @EXPORT = qw(cli);
 
 use App::Gimei::Runner;
 use Capture::Tiny qw(capture);
@@ -12,12 +14,12 @@ sub run {
 
     my @capture = capture {
         my $code = eval { App::Gimei::Runner->new->execute(@args) };
-
-        if ($@) {
+        if (!$@) {
+            $self->exit_code($code);
+            $self->error_message(undef);
+        } else {
             $self->exit_code(255);
             $self->error_message($@);
-        } else {
-            $self->exit_code($code);
         }
     };
 
