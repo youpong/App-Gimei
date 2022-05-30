@@ -34,6 +34,10 @@ sub parse_option {
         "n=i",
         "sep=s",
     );
+
+    if ($opts_ref->{n} < 1) {
+        die "Error: value $opts_ref->{n} invalid for option n (must be positive number)\n";
+    }
 }
 
 sub execute {
