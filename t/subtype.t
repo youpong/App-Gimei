@@ -8,7 +8,7 @@ use Test::More;
 
 my $app = t::CLI->new;
 
-{
+{ # subtype_name
     $app->run('name:family');
     is   $app->exit_code, 0;
     like $app->stdout, qr/^\S+$/;
@@ -40,7 +40,7 @@ my $app = t::CLI->new;
     is $app->error_message, "Error: unkown subtype or rendering: unknown\n";
 }
 
-{
+{ #subtype_address
     $app->run('address:prefecture');
     is   $app->exit_code, 0;
     like $app->stdout, qr/^\S+$/;
