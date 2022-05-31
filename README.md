@@ -1,3 +1,4 @@
+[![Actions Status](https://github.com/youpong/App-Gimei/workflows/test/badge.svg)](https://github.com/youpong/App-Gimei/actions)
 # NAME
 
 App::Gimei - CLI for Data::Gimei
