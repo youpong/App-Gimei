@@ -1,6 +1,6 @@
 package App::Gimei;
 
-use strict; use warnings;
+use warnings;
 use v5.22;
 
 use version; our $VERSION = version->declare("v0.0.1");
