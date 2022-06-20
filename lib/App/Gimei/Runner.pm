@@ -17,7 +17,7 @@ use Class::Tiny;
 # global vars
 #
 
-my %conf = ( POD_FILE => pod_where({-inc => 1}, 'App::Gimei') );
+my %conf = ( POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) );
 
 #
 # methods
@@ -33,7 +33,7 @@ sub parse_option {
 
     local $SIG{__WARN__} = sub { die "Error: $_[0]" };
     my $ok = $p->getoptionsfromarray( $args_ref, $opts_ref, "help|h", "version|v", "n=i",
-                                       "sep=s", );
+        "sep=s", );
 
     if ( $opts_ref->{n} < 1 ) {
         die
