@@ -1,7 +1,7 @@
 package App::Gimei::Context;
 
 use warnings;
-use v5.22;
+use v5.34;
 
 use Class::Tiny qw ( index tokens );
 

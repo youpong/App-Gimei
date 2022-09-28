@@ -1,5 +1,5 @@
 use warnings;
-use v5.22;
+use v5.34;
 
 use App::Gimei::Context;
 use Test::More;
@@ -10,6 +10,18 @@ use Test::More;
 
     is $context->next_token(), "name";
     is $context->next_token(), "family";
+    is $context->next_token(), "kanji";
+    is $context->next_token(), ':'; # end of arg
+    is $context->next_token(), '-'; # end of args
+}
+
+{ # step_back
+    my @args = ("name:kanji");
+    my $context = App::Gimei::Context->new(@args);
+
+    is $context->next_token(), "name";
+    is $context->next_token(), "kanji";
+    $context->step_back();
     is $context->next_token(), "kanji";
     is $context->next_token(), ':'; # end of arg
     is $context->next_token(), '-'; # end of args

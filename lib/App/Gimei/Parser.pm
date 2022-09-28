@@ -51,9 +51,9 @@ sub parse_arg {
         $ir{sub_type} = $self->name_subtype();
     } elsif ($token eq 'address') {
         $ir{type} = 'address';
-        $ir{sub_type} = address_subtype();
+        $ir{sub_type} = $self->address_subtype();
     }
-    $ir{rendering} = rendering();
+    $ir{rendering} = $self->rendering();
 
     return \%ir;
 }
@@ -63,6 +63,7 @@ sub name_subtype {
 
     my $token = $self->context->next_token();
     if ($token eq '-') {
+        $self->context->step_back();
         return 'family';
     }
     if ($token eq 'family' || $token eq 'last') {
@@ -76,10 +77,49 @@ sub name_subtype {
 }
 
 sub address_subtype {
+    my $self = shift;
+
+    my $token = $self->context->next_token();
+    if ($token eq '-') {
+        $self->context->step_back();
+        return 'prefecture';
+    }
+    if ($token eq 'prefecture') {
+        return 'prefecture';
+    }
+    if ($token eq 'city') {
+        return 'city';
+    }
+    if ($token eq 'town') {
+        return 'town';
+    }
+
+    $self->context->step_back();
     return 'prefecture';
 }
 
 sub rendering {
+    my $self = shift;
+
+    my $token = $self->context->next_token();
+    if ($token eq '-') {
+        $self->context->step_back();
+        return 'kanji';
+    }
+    if ($token eq 'kanji' ) {
+        return 'kanji';
+    }
+    if ($token eq 'hiragana') {
+        return 'hiragana';
+    }
+    if ($token eq 'katakana') {
+        return 'katakana';
+    }
+    if ($token eq 'romaji' ) {
+        return 'romaji';
+    }
+
+    $self->context->step_back();
     return 'kanji';
 }
 

@@ -84,6 +84,15 @@ use Test::More;
     is $ir->{rendering}, 'kanji';
 }
 
+{ # 201
+    my @args = ('address:kanji');
+    my $context = App::Gimei::Context->new(@args);
+    my $parser = App::Gimei::Parser->new($context);
+    my $ir = $parser->parse_arg();
 
+    is $ir->{type}, 'address';
+    is $ir->{sub_type}, 'prefecture';
+    is $ir->{rendering}, 'kanji';
+}
 
 done_testing;
