@@ -5,6 +5,10 @@ use v5.22;
 
 use version; our $VERSION = version->declare("v0.1.1");
 
+use App::Gimei::Context;
+use App::Gimei::Parser;
+use App::Gimei::Evaluator;
+
 1;
 __END__
 
@@ -57,6 +61,10 @@ Omitting ARGS is equivalent to specifying name:kanji.
 =head1 DESCRIPTION
 
 App::Gimei is CLI for Data::Gimei generates fake data that people's name in Japanese.
+
+=head1 REQUIREMENTS
+
+Perl v5.34.0 or later
 
 =head1 INSTALL
 

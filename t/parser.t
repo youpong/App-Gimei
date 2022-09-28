@@ -6,14 +6,24 @@ use App::Gimei::Parser;
 use Test::More;
 
 {
-     my @args = ('name', 'address');
-     my $context = App::Gimei::Context->new(@args);
-     my $parser = App::Gimei::Parser->new($context);
+    my @args = ('name', 'name:kanji', 'name:family', 'name:family:kanji');
+    my @want = ( {type => 'name', sub_type => 'full',   rendering=>'kanji'},
+                 {type => 'name', sub_type => 'full',   rendering=>'kanji'},
+                 {type => 'name', sub_type => 'family', rendering=>'kanji'},
+                 {type => 'name', sub_type => 'family', rendering=>'kanji'} );
 
-     my @irs = $parser->parse();
-     foreach my $ir (@irs) {
-         say $ir->{type};
-     }
+    my $context = App::Gimei::Context->new(@args);
+    my $parser = App::Gimei::Parser->new($context);
+
+    my @irs = $parser->parse();
+    for (my $i = 0; $i < @irs; $i++) {
+        my $got = $irs[$i];
+        my $want = $want[$i];
+
+        is $got->{type}, $want->{type};
+        is $got->{sub_type}, $want->{sub_type};
+        is $got->{rendering}, $want->{rendering};
+    }
 }
 
 {
@@ -25,43 +35,6 @@ use Test::More;
      foreach my $ir (@irs) {
          say $ir->{type};
      }
-}
-
-{
-    my @args = ();
-    my $context = App::Gimei::Context->new(@args);
-    my $parser = App::Gimei::Parser->new($context);
-    my $ir = $parser->parse_arg();
-
-    is $ir, undef;
-}
-
-{
-    my @args = ('name');
-    my $context = App::Gimei::Context->new(@args);
-    my $parser = App::Gimei::Parser->new($context);
-
-    my $ir;
-
-    $ir = $parser->parse_arg();
-    is $ir->{type}, 'name';
-
-    $ir = $parser->parse_arg();
-    is $ir, undef;
-}
-
-{
-    my @args = ('name', 'address');
-    my $context = App::Gimei::Context->new(@args);
-    my $parser = App::Gimei::Parser->new($context);
-
-    my $ir;
-
-    $ir = $parser->parse_arg();
-    is $ir->{type}, 'name';
-
-    $ir = $parser->parse_arg();
-    is $ir->{type}, 'address';
 }
 
 {
@@ -86,38 +59,6 @@ use Test::More;
     is $ir->{rendering}, 'kanji';
 }
 
-{ #100
-    my @args = ('name');
-    my $context = App::Gimei::Context->new(@args);
-    my $parser = App::Gimei::Parser->new($context);
-    my $ir = $parser->parse_arg();
-
-    is $ir->{type}, 'name';
-    is $ir->{sub_type}, 'full';
-    is $ir->{rendering}, 'kanji';
-}
-
-{ # 101
-    my @args = ('name:kanji');
-    my $context = App::Gimei::Context->new(@args);
-    my $parser = App::Gimei::Parser->new($context);
-    my $ir = $parser->parse_arg();
-
-    is $ir->{type}, 'name';
-    is $ir->{sub_type}, 'full';
-    is $ir->{rendering}, 'kanji';
-}
-
-{ # 110
-    my @args = ('name:family');
-    my $context = App::Gimei::Context->new(@args);
-    my $parser = App::Gimei::Parser->new($context);
-    my $ir = $parser->parse_arg();
-
-    is $ir->{type}, 'name';
-    is $ir->{sub_type}, 'family';
-    is $ir->{rendering}, 'kanji';
-}
 
 { # 201
     my @args = ('address:kanji');
