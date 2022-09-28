@@ -58,7 +58,7 @@ use Test::More;
     my $ir = $parser->parse_arg();
 
     is $ir->{type}, 'name';
-    is $ir->{sub_type}, 'family';
+    is $ir->{sub_type}, 'full';
     is $ir->{rendering}, 'kanji';
 }
 
@@ -69,7 +69,7 @@ use Test::More;
     my $ir = $parser->parse_arg();
 
     is $ir->{type}, 'name';
-    is $ir->{sub_type}, 'family';
+    is $ir->{sub_type}, 'full';
     is $ir->{rendering}, 'kanji';
 }
 
@@ -91,7 +91,7 @@ use Test::More;
     my $ir = $parser->parse_arg();
 
     is $ir->{type}, 'address';
-    is $ir->{sub_type}, 'prefecture';
+    is $ir->{sub_type}, 'full';
     is $ir->{rendering}, 'kanji';
 }
 

@@ -64,7 +64,7 @@ sub name_subtype {
     my $token = $self->context->next_token();
     if ($token eq '-') {
         $self->context->step_back();
-        return 'family';
+        return 'full';
     }
     if ($token eq 'family' || $token eq 'last') {
         return 'family';
@@ -73,7 +73,7 @@ sub name_subtype {
         return 'given';
     }
     $self->context->step_back();
-    return 'family';
+    return 'full';
 }
 
 sub address_subtype {
@@ -82,7 +82,7 @@ sub address_subtype {
     my $token = $self->context->next_token();
     if ($token eq '-') {
         $self->context->step_back();
-        return 'prefecture';
+        return 'full';
     }
     if ($token eq 'prefecture') {
         return 'prefecture';
@@ -95,7 +95,7 @@ sub address_subtype {
     }
 
     $self->context->step_back();
-    return 'prefecture';
+    return 'full';
 }
 
 sub rendering {
