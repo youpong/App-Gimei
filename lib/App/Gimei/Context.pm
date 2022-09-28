@@ -3,15 +3,16 @@ package App::Gimei::Context;
 use warnings;
 use v5.22;
 
-use Class::Tiny qw ( tokens );
+use Class::Tiny qw ( index tokens );
 
 sub BUILDARGS {
     my ( $class, @cl_args ) = @_;
 
     my @tokens;
     foreach my $arg (@cl_args) {
-        push @tokens, split( /[-:]/, $arg);
+        push @tokens, split( /[-:]/, $arg), ':';
     }
+    push @tokens, '-';
 
     return { tokens => \@tokens };
 }
@@ -19,28 +20,30 @@ sub BUILDARGS {
 sub next_token {
     my $self = shift;
 
-    $self->{index}++;
-    return $self->token_at($self->{index});
-    $self->{tokens}
-}
-
-sub token_at {
-    my ( $self, $index )  = @_;
-
+    my $index = $self->{index}++;
     return $self->{tokens}[$index];
 }
 
+sub step_back {
+    my $self = shift;
+
+    $self->{index}--;
+}
+
+# TODO need?
 sub consume_token {
+    my ( $self, $token ) = @_;
+
+    $self->{index}++;
 }
 
 sub to_s {
     my $self = shift;
 
+    $self->{index}++;
+    say $self->index;
     foreach my $token (@{$self->tokens}) {
         say $token;
     }
-    #my $tokens_ref = $self->tokens;
-    #say $tokens_ref;
-    #return $self->{tokens};
 }
 1;
