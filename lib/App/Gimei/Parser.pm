@@ -27,10 +27,9 @@ sub parse {
 
     my @irs;
 
-    my %ir;
-    while ( (%ir = $self->parse_arg()) ) {
-        say %ir;
-        push @irs, %ir;
+    my $ir;
+    while ( $ir = $self->parse_arg() ) {
+        push @irs, $ir;
     }
 
     return @irs;
@@ -54,6 +53,8 @@ sub parse_arg {
         $ir{sub_type} = $self->address_subtype();
     }
     $ir{rendering} = $self->rendering();
+
+    $self->context->next_token(); # consume ':', '-'
 
     return \%ir;
 }

@@ -6,18 +6,25 @@ use App::Gimei::Parser;
 use Test::More;
 
 {
-    1;
-#    my @args = ();
-#    my $context = App::Gimei::Context->new(@args);
-#    my $parser = App::Gimei::Parser->new($context);
+     my @args = ('name', 'address');
+     my $context = App::Gimei::Context->new(@args);
+     my $parser = App::Gimei::Parser->new($context);
 
-    #say $parser->to_s;
-    #my @irs = $parser->parse();
-    #my $ir = $parser->parse_arg();
-    
-    #foreach my $ir (@irs) {
-    #say %$ir;
-    #}
+     my @irs = $parser->parse();
+     foreach my $ir (@irs) {
+         say $ir->{type};
+     }
+}
+
+{
+     my @args = ();
+     my $context = App::Gimei::Context->new(@args);
+     my $parser = App::Gimei::Parser->new($context);
+
+     my @irs = $parser->parse();
+     foreach my $ir (@irs) {
+         say $ir->{type};
+     }
 }
 
 {
@@ -27,6 +34,34 @@ use Test::More;
     my $ir = $parser->parse_arg();
 
     is $ir, undef;
+}
+
+{
+    my @args = ('name');
+    my $context = App::Gimei::Context->new(@args);
+    my $parser = App::Gimei::Parser->new($context);
+
+    my $ir;
+
+    $ir = $parser->parse_arg();
+    is $ir->{type}, 'name';
+
+    $ir = $parser->parse_arg();
+    is $ir, undef;
+}
+
+{
+    my @args = ('name', 'address');
+    my $context = App::Gimei::Context->new(@args);
+    my $parser = App::Gimei::Parser->new($context);
+
+    my $ir;
+
+    $ir = $parser->parse_arg();
+    is $ir->{type}, 'name';
+
+    $ir = $parser->parse_arg();
+    is $ir->{type}, 'address';
 }
 
 {
