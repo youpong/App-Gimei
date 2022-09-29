@@ -14,10 +14,22 @@ sub evaluate {
     my ( $word, $result );
     if ( $self->type eq 'name' ) {
         $word = Data::Gimei::Name->new();
+    } elsif ( $self->type eq 'address' ) {
+        $word = Data::Gimei::Address->new();
     }
+
     if ( $self->sub_type eq 'family' ) {
         $word =  $word->family;
+    } elsif ( $self->sub_type eq 'first' ) {
+        $word =  $word->first;
+    } elsif ( $self->sub_type eq 'prefecture' ) {
+        $word = $word->prefecture;
+    } elsif ( $self->sub_type eq 'city' ) {
+        $word = $word->city;
+    } elsif ( $self->sub_type eq 'town' ) {
+        $word = $word->town;
     }
+
     if ( $self->rendering eq 'kanji') {
         $result = $word->kanji;
     }

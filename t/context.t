@@ -43,6 +43,8 @@ use Test::More;
 { # 0 arsg
     my @args = ();
     my $context = App::Gimei::Context->new(@args);
+    is $context->next_token(), 'name';
+    is $context->next_token(), ':'; # end of arg
     is $context->next_token(), '-'; # end of args
 }
 

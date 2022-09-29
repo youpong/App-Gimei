@@ -8,6 +8,8 @@ use Class::Tiny qw ( index tokens );
 sub BUILDARGS {
     my ( $class, @cl_args ) = @_;
 
+    push @cl_args, 'name' unless (@cl_args);
+
     my @tokens;
     foreach my $arg (@cl_args) {
         push @tokens, split( /[-:]/, $arg), ':';

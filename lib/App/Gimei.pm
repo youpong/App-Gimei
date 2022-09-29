@@ -8,6 +8,7 @@ use version; our $VERSION = version->declare("v0.1.1");
 use App::Gimei::Context;
 use App::Gimei::Parser;
 use App::Gimei::Evaluator;
+use App::Gimei::Checker;
 
 1;
 __END__
