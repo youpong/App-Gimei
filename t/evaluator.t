@@ -29,13 +29,14 @@ use Test::More;
     my $context = App::Gimei::Context->new(@args);
     my $parser = App::Gimei::Parser->new($context);
     my @irs = $parser->parse();
-    
+
     foreach my $ir (@irs) {
         my $evaluator = App::Gimei::Evaluator->new($ir);
-        
+
         say $evaluator->to_s();
         say $evaluator->evaluate();
     }
 }
 
+ok 1;
 done_testing;

@@ -51,6 +51,8 @@ sub parse_arg {
     } elsif ($token eq 'address') {
         $ir{type} = 'address';
         $ir{sub_type} = $self->address_subtype();
+    } else {
+        die "Error: unknown word_type: NOT_SUPPORTED\n";
     }
     $ir{rendering} = $self->rendering();
 
