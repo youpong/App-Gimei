@@ -54,7 +54,10 @@ sub parse_arg {
     }
     $ir{rendering} = $self->rendering();
 
-    $self->context->next_token(); # consume ':', '-'
+    $token = $self->context->next_token(); # consume ':', '-'
+    if ($token ne ':' && $token ne '-') {
+        die "Error: unknown subtype or rendering: unknown\n";
+    }
 
     return \%ir;
 }
@@ -69,7 +72,8 @@ sub name_subtype {
     }
     if ($token eq 'name') {
         return 'full';
-    } elsif ($token eq 'family' || $token eq 'last') {
+    }
+    if ($token eq 'family' || $token eq 'last') {
         return 'family';
     }
     if ($token eq 'given' || $token eq 'first') {

@@ -21,8 +21,8 @@ sub evaluate {
 
     if ( $self->sub_type eq 'family' ) {
         $word =  $word->family;
-    } elsif ( $self->sub_type eq 'first' ) {
-        $word = $word->first;
+    } elsif ( $self->sub_type eq 'given' ) {
+        $word = $word->given;
     } elsif ( $self->sub_type eq 'gender') {
         $word = $word->gender;
     } elsif ( $self->sub_type eq 'prefecture' ) {
