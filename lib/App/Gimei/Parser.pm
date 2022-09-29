@@ -16,10 +16,10 @@ sub BUILDARGS {
 
 # (* the Syntax in extended BNF *)
 # arg               =  type , [':' sub type] , [':' rendering]
-# type              = 'name'       | 'male'     | 'female'   | 'address'
-# sub type(name)    = 'family'     | 'given'
-# sub type(address) = 'prefecture' | 'city'     | 'town'
-# rendering         = 'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+# type              = 'name'           | 'male'     | 'female'   | 'address'
+# sub type(name)    = 'family'         | 'given'    | 'gender'
+# sub type(address) = 'prefecture'     | 'city'     | 'town'
+# rendering         = 'name' | 'kanji' | 'hiragana' | 'katakana' | 'romaji'
 
 # parse
 sub parse {
@@ -67,12 +67,18 @@ sub name_subtype {
         $self->context->step_back();
         return 'full';
     }
-    if ($token eq 'family' || $token eq 'last') {
+    if ($token eq 'name') {
+        return 'full';
+    } elsif ($token eq 'family' || $token eq 'last') {
         return 'family';
     }
     if ($token eq 'given' || $token eq 'first') {
         return 'given';
     }
+    if ($token eq 'gender' || $token eq 'sex') {
+        return 'gender';
+    }
+
     $self->context->step_back();
     return 'full';
 }
@@ -107,7 +113,7 @@ sub rendering {
         $self->context->step_back();
         return 'kanji';
     }
-    if ($token eq 'kanji' ) {
+    if ($token eq 'kanji' || $token eq 'name' ) {
         return 'kanji';
     }
     if ($token eq 'hiragana') {
