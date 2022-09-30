@@ -6,42 +6,58 @@ use v5.34;
 use App::Gimei;
 use Data::Gimei;
 
-use Class::Tiny qw( type sub_type rendering );
+use Class::Tiny qw( irs );
+
+sub BUILDARGS {
+    my ($class, @irs) = @_;
+
+    return { irs => \@irs };
+}
 
 sub evaluate {
     my $self = shift;
 
+    my @results;
+    foreach my $ir (@{$self->irs}) {
+        push @results, $self->evaluate1($ir);
+    }
+    return @results;
+}
+
+sub evaluate1 {
+    my ($self, $ir) = @_;
+
     my ( $word, $result );
 
-    if ( $self->type eq 'name' ) {
+    if ( $ir->{type} eq 'name' ) {
         $word = Data::Gimei::Name->new();
-    } elsif ( $self->type eq 'address' ) {
+    } elsif ( $ir->{type} eq 'address' ) {
         $word = Data::Gimei::Address->new();
     }
 
-    if ( $self->sub_type eq 'family' ) {
+    if ( $ir->{sub_type} eq 'family' ) {
         $word =  $word->family;
-    } elsif ( $self->sub_type eq 'given' ) {
+    } elsif ( $ir->{sub_type} eq 'given' ) {
         $word = $word->given;
-    } elsif ( $self->sub_type eq 'gender') {
+    } elsif ( $ir->{sub_type} eq 'gender') {
         $word = $word->gender;
-    } elsif ( $self->sub_type eq 'prefecture' ) {
+    } elsif ( $ir->{sub_type} eq 'prefecture' ) {
         $word = $word->prefecture;
-    } elsif ( $self->sub_type eq 'city' ) {
+    } elsif ( $ir->{sub_type} eq 'city' ) {
         $word = $word->city;
-    } elsif ( $self->sub_type eq 'town' ) {
+    } elsif ( $ir->{sub_type} eq 'town' ) {
         $word = $word->town;
     }
 
-    if ( $self->sub_type eq 'gender' ) {
+    if ( $ir->{sub_type} eq 'gender' ) {
         $result = $word;
-    } elsif ( $self->rendering eq 'kanji') {
+    } elsif ( $ir->{rendering} eq 'kanji') {
         $result = $word->kanji;
-    } elsif ( $self->rendering eq 'hiragana' ) {
+    } elsif ( $ir->{rendering} eq 'hiragana' ) {
         $result = $word->hiragana;
-    } elsif ( $self->rendering eq 'katakana' ) {
+    } elsif ( $ir->{rendering} eq 'katakana' ) {
         $result = $word->katakana;
-    } elsif ( $self->rendering eq 'romaji' ) {
+    } elsif ( $ir->{rendering} eq 'romaji' ) {
         $result = $word->romaji;
     }
 

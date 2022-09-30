@@ -61,17 +61,15 @@ sub execute {
 
     my $context = App::Gimei::Context->new(@args);
     my $parser  = App::Gimei::Parser->new($context);
-    my $checker = App::Gimei::Checker->new();
+
 
     my @irs = $parser->parse();
-    $checker->check(@irs);
+    my $checker = App::Gimei::Checker->new(@irs);
+    $checker->check();
+
+    my $evaluator = App::Gimei::Evaluator->new(@irs);
     foreach ( 1 .. $opts{n} ) {
-        my @results;
-        foreach my $ir (@irs) {
-            my $evaluator = App::Gimei::Evaluator->new($ir);
-            push @results, $evaluator->evaluate();
-        }
-        say join $opts{sep}, @results;
+        say join $opts{sep}, $evaluator->evaluate();
     }
 
     return 0;
