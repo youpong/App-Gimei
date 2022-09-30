@@ -46,7 +46,7 @@ sub parse_arg {
         return undef
     }
     if ($token eq 'name' || $token eq 'male' || $token eq 'female') {
-        $ir{type} = 'name';
+        $ir{type} = $token;
         $ir{sub_type} = $self->name_subtype();
     } elsif ($token eq 'address') {
         $ir{type} = 'address';

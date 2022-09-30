@@ -32,6 +32,9 @@ sub evaluate1 {
     if ( $ir->{type} eq 'name' ) {
         $self->{name} //= Data::Gimei::Name->new();
         $word = $self->name;
+    } elsif ($ir->{type} eq 'male' || $ir->{type} eq 'female' ) {
+        $self->{name} //= Data::Gimei::Name->new(gender => $ir->{type});
+        $word = $self->name;
     } elsif ( $ir->{type} eq 'address' ) {
         $self->{address} //= Data::Gimei::Address->new();
         $word = $self->address;
@@ -68,9 +71,5 @@ sub evaluate1 {
 
 sub to_s {
     my $self = shift;
-
-    return "{ type => '" . $self->type .
-        "', sub_type => '" . $self->sub_type .
-        "', rendering => '" . $self->rendering . "' }";
 }
 1;

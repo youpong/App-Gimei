@@ -9,18 +9,16 @@ use App::Gimei::Evaluator;
 use Test::More;
 
 {
-    my $ir = {type => 'name', sub_type => 'full',   rendering=>'kanji'};
-    my $evaluator = App::Gimei::Evaluator->new($ir);
+    my @irs = ({type => 'name', sub_type => 'full',   rendering=>'kanji'});
+    my $evaluator = App::Gimei::Evaluator->new(@irs);
 
-    say $evaluator->to_s();
     say $evaluator->evaluate();
 }
 
 {
-    my $ir = {type => 'name', sub_type => 'family',   rendering=>'kanji'};
-    my $evaluator = App::Gimei::Evaluator->new($ir);
+    my @irs = ({type => 'name', sub_type => 'family',   rendering=>'kanji'});
+    my $evaluator = App::Gimei::Evaluator->new(@irs);
 
-    say $evaluator->to_s();
     say $evaluator->evaluate();
 }
 
@@ -33,7 +31,6 @@ use Test::More;
     foreach my $ir (@irs) {
         my $evaluator = App::Gimei::Evaluator->new($ir);
 
-        say $evaluator->to_s();
         say $evaluator->evaluate();
     }
 }
