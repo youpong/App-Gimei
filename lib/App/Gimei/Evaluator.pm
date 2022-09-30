@@ -6,7 +6,7 @@ use v5.34;
 use App::Gimei;
 use Data::Gimei;
 
-use Class::Tiny qw( irs );
+use Class::Tiny qw( irs name address );
 
 sub BUILDARGS {
     my ($class, @irs) = @_;
@@ -30,9 +30,11 @@ sub evaluate1 {
     my ( $word, $result );
 
     if ( $ir->{type} eq 'name' ) {
-        $word = Data::Gimei::Name->new();
+        $self->{name} //= Data::Gimei::Name->new();
+        $word = $self->name;
     } elsif ( $ir->{type} eq 'address' ) {
-        $word = Data::Gimei::Address->new();
+        $self->{address} //= Data::Gimei::Address->new();
+        $word = $self->address;
     }
 
     if ( $ir->{sub_type} eq 'family' ) {
