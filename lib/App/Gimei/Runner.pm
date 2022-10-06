@@ -111,12 +111,12 @@ sub subtype_name {
     my ( $token, $subtype, $call, $word_type );
 
     my %map = (
-        family => [ 'family', 'name' ],
-        last   => [ 'family', 'name' ],
-        given  => [ 'given',  'name' ],
-        first  => [ 'given',  ' name' ],
-        gender => [ 'gender', 'gender' ],
-        sex    => [ 'gender', 'gender' ],
+        'family' => [ 'surname',  'name'   ],
+        'last'   => [ 'surname',  'name'   ],
+        'given'  => [ 'forename', 'name'   ],
+        'first'  => [ 'forename', 'name'   ],
+        'gender' => [ 'gender',   'gender' ],
+        'sex'    => [ 'gender',   'gender' ],
     );
 
     $word_type = 'name';
