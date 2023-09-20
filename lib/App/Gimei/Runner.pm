@@ -61,21 +61,14 @@ sub execute {
         push @args, 'name:kanji';
     }
 
+    my @generators = parse_args( @args );
+
     foreach ( 1 .. $opts{n} ) {
-        my %words = (
-            name    => Data::Gimei::Name->new(),
-            male    => Data::Gimei::Name->new( gender => 'male' ),
-            female  => Data::Gimei::Name->new( gender => 'female' ),
-            address => Data::Gimei::Address->new()
-        );
-
-        my @results;
-        foreach my $arg (@args) {
-            my @tokens = split( /[-:]/, $arg );
-            push @results, execute_tokens( \@tokens, \%words );
-        }
-
-        say join $opts{sep}, @results;
+	my ( @words, %cache );
+	foreach my $g (@generators) {
+	    push @words, $g->execute( \%cache );
+	}
+        say join $opts{sep}, @words;
     }
 
     return 0;
@@ -85,87 +78,97 @@ sub execute {
 # functions ...
 #
 
-# ARG:                   [WORD_TYPE] [':' WORD_SUB_TYPE] [':' RENDERING]
-# WORD_TYPE:             'name'       | 'address'
-# WORD_SUBTYPE(name):    'family'     | 'given'
-# WORD_SUBTYPE(address): 'prefecture' | 'city'     | 'town'
-# RENDERING:             'kanji'      | 'hiragana' | 'katakana' | 'romaji'
-sub execute_tokens {
-    my ( $tokens_ref, $words_ref ) = @_;
-    my ( $word_type, $word, $token );
+sub parse_args {
+    my ( @args ) = @_;
+    my @generators;
+    
+    foreach my $arg (@args) {
+	push @generators, parse_arg($arg);
+    }
 
-    $token = shift @$tokens_ref;
+    return @generators;
+}
+
+# ARG:                            [WORD_TYPE] [':' WORD_SUB_TYPE] [':' RENDERING]
+# WORD_TYPE:                      'name' | 'male' | 'female' | 'address'
+# WORD_SUBTYPE(name|male|female): 'family'     | 'given'
+# WORD_SUBTYPE(address):          'prefecture' | 'city'     | 'town'
+# RENDERING:                      'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+sub parse_arg {
+    my ( $arg ) = @_;
+    my ( $gen, @tokens );
+
+    @tokens = split( /[-:]/, $arg );
+    
+    my $token = shift @tokens;
     if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) {
-        ( $word, $word_type ) = subtype_name( $tokens_ref, $words_ref->{$token} );
+	$gen = App::Gimei::Generator->new( word_class => "Data::Gimei::Name" );
+	my $gender = $token;
+	if ( $gender eq 'name' ) {
+	    $gender = 'default';
+	}
+	$gen->gender( $gender );
+        $gen->word_subtype( subtype_name( \@tokens ) );
     } elsif ( $token eq 'address' ) {
-        ( $word, $word_type ) = subtype_address( $tokens_ref, $words_ref->{$token} );
+	$gen = App::Gimei::Generator->new( word_class => "Data::Gimei::Address" );
+        $gen->word_subtype( subtype_address( \@tokens ) );
     } else {
         die "Error: unknown word_type: $token\n";
     }
 
-    return render( $tokens_ref, $word_type, $word );
+    $gen->render( render( \@tokens ) );
+
+    return $gen;
 }
 
 sub subtype_name {
-    my ( $tokens_ref, $word ) = @_;
-    my ( $token, $subtype, $call, $word_type );
+    my ( $tokens_ref ) = @_;
+    my ( $word_subtype );
 
     my %map = (
-        'family' => [ 'surname',  'name'   ],
-        'last'   => [ 'surname',  'name'   ],
-        'given'  => [ 'forename', 'name'   ],
-        'first'  => [ 'forename', 'name'   ],
-        'gender' => [ 'gender',   'gender' ],
-        'sex'    => [ 'gender',   'gender' ],
+        'family' => 'surname',
+        'last'   => 'surname',
+        'given'  => 'forename',
+        'first'  => 'forename',
+        'gender' => 'gender',
+        'sex'    => 'gender',
     );
 
-    $word_type = 'name';
-    $token     = @$tokens_ref[0] // '';
-    if ( my $m = $map{$token} ) {
+    my $token = @$tokens_ref[0] // '';
+    if ( $word_subtype = $map{$token} ) {
         shift @$tokens_ref;
-        $call      = $word->can( $m->[0] ) or die "system err";
-        $word      = $word->$call();
-        $word_type = $m->[1];
     }
 
-    return ( $word, $word_type );
+    return $word_subtype;
 }
 
 sub subtype_address {
-    my ( $tokens_ref, $word ) = @_;
-
+    my ( $tokens_ref ) = @_;
+    my ( $word_subtype );
+    
     my $token = @$tokens_ref[0] // '';
     if ( $token eq 'prefecture' || $token eq 'city' || $token eq 'town' ) {
         shift @$tokens_ref;
-        my $call = $word->can($token);
-        die "system error" if ( !$call );
-        $word = $word->$call();
+	$word_subtype = $token;
     }
 
-    return ( $word, 'address' );
+    return $word_subtype;
 }
 
 # romaji not supported in WORD_TYPE = 'address'
 sub render {
-    my ( $tokens_ref, $word_type, $word ) = @_;
-
-    my $token = @$tokens_ref[0];
-    if ( !$token || $token eq 'name' ) {
-        $token = "kanji";
+    my ( $tokens_ref ) = @_;
+    my $render = 'kanji';
+    
+    my $token = @$tokens_ref[0] // '';
+    if ( $token ) {
+	$render = $token;
+    }
+    if ( $token eq 'name' ) {
+        $render = "kanji";
     }
 
-    if ( $word_type eq 'address' && $token eq 'romaji' ) {
-        die "Error: unknown subtype or rendering: $token\n";
-    }
-
-    if ( $word_type eq 'gender' ) {
-        return $word;
-    }
-
-    my $call = $word->can($token);
-    die "Error: unknown subtype or rendering: $token\n" if ( !$call );
-
-    return $word->$call();
+    return $render;
 }
 
 1;
