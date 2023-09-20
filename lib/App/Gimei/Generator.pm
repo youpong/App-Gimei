@@ -2,7 +2,6 @@ package App::Gimei::Generator;
 
 use warnings;
 use v5.22;
-binmode STDOUT, ":utf8";
 
 use Carp;
 use Class::Tiny qw(
@@ -37,7 +36,6 @@ sub execute {
 	$word = $self->word_class->new;
 	$cache->{$key} = $word;
     }
-    #say $self-word_class;
 	
     if ($self->word_subtype) {
 	my $call = $word->can($self->word_subtype);
@@ -50,10 +48,6 @@ sub execute {
     }
 
     return $word;
-}
-
-sub clear {
-    # todo
 }
 
 1;
