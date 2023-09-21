@@ -1,28 +1,26 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - delete stale comment
+    - update perl version
+    - update actions/checkout@v4
 
 v0.2.2 2023-09-21T18:50:38Z
     - parse once
 	
 v0.2.1 2023-09-04T18:13:42Z
-
     - update dependencies
 
 v0.2.0 2022-10-06T08:07:27Z
-
     - support Data::Gimei v0.4 or later
 
 v0.1.1 2022-06-20T07:04:01Z
-
     - ues Pod::Usage instead of perldoc
 
 v0.1.0 2022-06-01T04:00:43Z
-
     - support 'name:sex'
     - add 'Capture::Tiny' to cpanfile
 
 v0.0.1 2022-05-31T03:56:53Z
-
     - original version
 
