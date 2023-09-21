@@ -89,7 +89,6 @@ sub subtype_address {
     return $word_subtype;
 }
 
-# romaji not supported in WORD_TYPE = 'address'
 sub render {
     my ( $tokens_ref ) = @_;
     my $status = '';
