@@ -62,7 +62,7 @@ sub execute {
 
     my @generators = App::Gimei::Parser::parse_args( @args );
     
-    # semantic_analysis( @generators );
+    semantic_analysis( @generators );
 
     foreach ( 1 .. $opts{n} ) {
 	my ( @words, %cache );
@@ -73,6 +73,14 @@ sub execute {
     }
 
     return 0;
+}
+
+sub semantic_analysis {
+    my ( @generators ) = @_;
+    
+    foreach my $gen (@generators) {
+	
+    }
 }
 
 1;

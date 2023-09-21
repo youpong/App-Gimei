@@ -44,7 +44,15 @@ sub parse_arg {
         die "Error: unknown word_type: $token\n";
     }
 
-    $gen->render( render( \@tokens ) );
+    my ( $ok, $render ) = render( \@tokens );
+    if ( ! $ok ) {
+	if ( defined $gen->word_subtype ) {
+	    die "Error: unknown rendering: $render\n";
+	} else {
+	    die "Error: unknown subtype or rendering: $render\n";
+	}
+    }
+    $gen->render( $render );
 
     return $gen;
 }
@@ -86,17 +94,14 @@ sub subtype_address {
 # romaji not supported in WORD_TYPE = 'address'
 sub render {
     my ( $tokens_ref ) = @_;
-    my $render = 'kanji';
     
-    my $token = @$tokens_ref[0] // '';
-    if ( $token ) {
-	$render = $token;
+    my $token = @$tokens_ref[0] // 'kanji';
+    if ( $token eq 'kanji' || $token eq 'hiragana'
+	 || $token eq 'katakana' || $token eq 'romaji' ) {
+	return ( "ok", $token );
+    } else {
+	return ( "", $token );
     }
-    if ( $token eq 'name' ) {
-        $render = "kanji";
-    }
-
-    return $render;
 }
 
 1;
