@@ -24,37 +24,35 @@ sub parse_args {
 # RENDERING:                      'kanji'      | 'hiragana' | 'katakana' | 'romaji'
 sub parse_arg {
     my ( $arg ) = @_;
-    my ( $gen, @tokens );
+    my ( $gen, @tokens, %params );
 
     @tokens = split( /[-:]/, $arg );
     
     my $token = shift @tokens;
     if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) {
-	$gen = App::Gimei::Generator->new( word_class => "Data::Gimei::Name" );
-	my $gender = $token;
-	if ( $gender eq 'name' ) {
-	    $gender = 'default';
+	$params{word_class} = "Data::Gimei::Name";
+	if ($token ne 'name') {
+	    $params{gender} = $token;
 	}
-	$gen->gender( $gender );
-        $gen->word_subtype( subtype_name( \@tokens ) );
+	$params{word_subtype} = subtype_name( \@tokens );
     } elsif ( $token eq 'address' ) {
-	$gen = App::Gimei::Generator->new( word_class => "Data::Gimei::Address" );
-        $gen->word_subtype( subtype_address( \@tokens ) );
+	$params{word_class} = "Data::Gimei::Address";
+	$params{word_subtype} = subtype_address( \@tokens );
     } else {
         die "Error: unknown word_type: $token\n";
     }
 
     my ( $ok, $render ) = render( \@tokens );
     if ( ! $ok ) {
-	if ( defined $gen->word_subtype ) {
+	if ( defined $params{word_subtype} ) {
 	    die "Error: unknown rendering: $render\n";
 	} else {
 	    die "Error: unknown subtype or rendering: $render\n";
 	}
     }
-    $gen->render( $render );
+    $params{render} = $render;
 
-    return $gen;
+    return App::Gimei::Generator->new( %params );
 }
 
 sub subtype_name {
@@ -94,14 +92,16 @@ sub subtype_address {
 # romaji not supported in WORD_TYPE = 'address'
 sub render {
     my ( $tokens_ref ) = @_;
+    my $status = '';
     
-    my $token = @$tokens_ref[0] // 'kanji';
-    if ( $token eq 'kanji' || $token eq 'hiragana'
-	 || $token eq 'katakana' || $token eq 'romaji' ) {
-	return ( "ok", $token );
-    } else {
-	return ( "", $token );
+    my $token = @$tokens_ref[0];
+    if ( !defined $token ||
+	 $token eq 'kanji' || $token eq 'hiragana' ||
+	 $token eq 'katakana' || $token eq 'romaji' ) {
+	$status = 'ok';
     }
+
+    return ( $status, $token );
 }
 
 1;

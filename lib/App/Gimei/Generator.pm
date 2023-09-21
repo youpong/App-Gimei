@@ -20,8 +20,9 @@ sub BUILDARGS {
 	croak "$arg arg required" unless exists $args{$arg};
     }
 
-    $args{gender} //= 'default';
-    $args{render} //= "kanji";
+    $args{word_subtype} //= '';
+    $args{gender} //= '';
+    $args{render} //= 'kanji';
     
     return \%args;
 }
@@ -33,19 +34,19 @@ sub execute {
     my $key = $self->word_class . $self->gender;
     $word = $cache->{$key};
     if (!defined $word) {
-	$word = $self->word_class->new;
+	$word = $self->word_class->new( gender => ($self->gender || undef) );
 	$cache->{$key} = $word;
     }
-	
-    if ($self->word_subtype) {
+
+    if ($self->word_subtype eq 'gender') {
+	return $word->gender;
+    } elsif ($self->word_subtype) {
 	my $call = $word->can($self->word_subtype);
 	$word = $word->$call();
     }
 
-    if ($self->render) {
-	my $call = $word->can($self->render);
-	$word = $word->$call();
-    }
+    my $call = $word->can($self->render);
+    $word = $word->$call();
 
     return $word;
 }
