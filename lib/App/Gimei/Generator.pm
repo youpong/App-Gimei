@@ -20,8 +20,6 @@ sub BUILDARGS {
 	croak "$arg arg required" unless exists $args{$arg};
     }
 
-    $args{word_subtype} //= '';
-    $args{gender} //= '';
     $args{render} //= 'kanji';
     
     return \%args;
@@ -31,16 +29,17 @@ sub execute {
     my ( $self, $cache ) = @_;
     my ( $word );
 
-    my $key = $self->word_class . $self->gender;
+    my $key = $self->word_class . ( $self->gender // '' );
     $word = $cache->{$key};
     if (!defined $word) {
-	$word = $self->word_class->new( gender => ($self->gender || undef) );
+	$word = $self->word_class->new( gender => $self->gender );
 	$cache->{$key} = $word;
     }
 
-    if ($self->word_subtype eq 'gender') {
-	return $word->gender;
-    } elsif ($self->word_subtype) {
+    if ($self->word_subtype) {
+	if ($self->word_subtype eq 'gender') {
+	    return $word->gender;
+	}
 	my $call = $word->can($self->word_subtype);
 	$word = $word->$call();
     }

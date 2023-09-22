@@ -18,7 +18,7 @@ use Test::More;
 {
     my %params = ( word_class => 'Data::Gimei::Name' );
     my $gen = App::Gimei::Generator->new(%params);
-    is $gen->gender(), '';
+    is $gen->gender, undef;
 }
 
 # test gender('male')
