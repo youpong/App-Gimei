@@ -7,7 +7,7 @@ use Test::More;
 # test caching
 {
     my $cache = {};
-    my $g = App::Gimei::Generator->new(word_class => "Data::Gimei::Name");
+    my $g     = App::Gimei::Generator->new( word_class => "Data::Gimei::Name" );
 
     my $previous = $g->execute($cache);
 
@@ -17,20 +17,22 @@ use Test::More;
 # test gender('')
 {
     my %params = ( word_class => 'Data::Gimei::Name' );
-    my $gen = App::Gimei::Generator->new(%params);
-    is $gen->gender, undef;
+    my $g      = App::Gimei::Generator->new(%params);
+    is $g->gender, undef;
 }
 
 # test gender('male')
 {
-    my %params = ( word_class => 'Data::Gimei::Name',
-		   word_subtype => 'gender',
-                   gender => 'male' );
-    my $gen = App::Gimei::Generator->new(%params);
-    my $gender = $gen->execute();
+    my %params = (
+        word_class   => 'Data::Gimei::Name',
+        word_subtype => 'gender',
+        gender       => 'male'
+    );
+    my $g      = App::Gimei::Generator->new(%params);
+    my $gender = $g->execute();
 
-    is $gen->gender(), 'male';
-    is $gender, 'male';
+    is $g->gender(), 'male';
+    is $gender,      'male';
 }
 
 done_testing();

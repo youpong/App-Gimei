@@ -7,7 +7,7 @@ use v5.22;
 
 use App::Gimei::Runner;
 use Capture::Tiny qw(capture);
-use Class::Tiny qw( stdout stderr exit_code error_message);
+use Class::Tiny   qw( stdout stderr exit_code error_message);
 
 sub run {
     my ( $self, @args ) = @_;
