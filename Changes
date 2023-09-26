@@ -6,10 +6,11 @@ Revision history for Perl extension App-Gimei
     - update actions/checkout@v4
     - change default value of gender and word_subtype
     - perl tidy
+    - delete unused module
 
 v0.2.2 2023-09-21T18:50:38Z
     - parse once
-	
+
 v0.2.1 2023-09-04T18:13:42Z
     - update dependencies
 
@@ -25,4 +26,3 @@ v0.1.0 2022-06-01T04:00:43Z
 
 v0.0.1 2022-05-31T03:56:53Z
     - original version
-

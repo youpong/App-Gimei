@@ -4,7 +4,6 @@ use warnings;
 use v5.22;
 
 use App::Gimei;
-use Class::Tiny;
 
 sub parse_args {
     my (@args) = @_;

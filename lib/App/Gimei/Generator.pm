@@ -3,7 +3,6 @@ package App::Gimei::Generator;
 use warnings;
 use v5.22;
 
-use Carp;
 use Class::Tiny qw(
   word_class
   gender
@@ -17,7 +16,7 @@ sub BUILDARGS {
     my ( $class, %args ) = @_;
 
     for my $arg (qw/word_class/) {
-        croak "$arg arg required" unless exists $args{$arg};
+        die "$arg arg required" unless exists $args{$arg};
     }
 
     $args{render} //= 'kanji';
