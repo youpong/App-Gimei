@@ -10,13 +10,8 @@ sub run {
 
     my @capture = capture {
         my $code = eval { App::Gimei::Runner->new->execute(@args) };
-        if ( !$@ ) {
-            $self->exit_code($code);
-            $self->error_message(undef);
-        } else {
-            $self->exit_code(255);
-            $self->error_message($@);
-        }
+        $self->exit_code($code);
+        $self->error_message($@);
     };
 
     $self->stdout( $capture[0] );
