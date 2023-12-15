@@ -1,7 +1,6 @@
 package App::Gimei::Generator;
 
-use warnings;
-use v5.22;
+use v5.36;
 
 use Class::Tiny qw(
   word_class

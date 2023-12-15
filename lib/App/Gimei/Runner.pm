@@ -1,7 +1,6 @@
 package App::Gimei::Runner;
 
-use warnings;
-use v5.22;
+use v5.36;
 binmode STDOUT, ":utf8";
 
 use Getopt::Long;

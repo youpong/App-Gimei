@@ -1,9 +1,5 @@
 package t::CLI;
-use warnings;
-use v5.22;
-
-#use base qw(Exporter);
-#our @EXPORT = qw(cli);
+use v5.36;
 
 use App::Gimei::Runner;
 use Capture::Tiny qw(capture);

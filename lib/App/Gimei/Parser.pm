@@ -1,7 +1,6 @@
 package App::Gimei::Parser;
 
-use warnings;
-use v5.22;
+use v5.36;
 
 use App::Gimei;
 

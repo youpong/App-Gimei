@@ -1,5 +1,4 @@
-use warnings;
-use v5.22;
+use v5.36;
 
 use App::Gimei::Generator;
 use Test::More;

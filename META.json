@@ -48,7 +48,7 @@
             "Getopt::Long" : "2.54",
             "Pod::Find" : "1.66",
             "Pod::Usage" : "2.03",
-            "perl" : "5.022001"
+            "perl" : "v5.36.0"
          }
       },
       "test" : {
