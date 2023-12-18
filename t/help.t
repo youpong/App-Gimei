@@ -1,22 +1,22 @@
 use v5.36;
 
 use lib ".";
-use t::CLI;
+use t::Util qw(run);
 
-use Test::More;
-
-my $app = t::CLI->new;
-
-$app->run('-help');
-is $app->exit_code, 0;
-ok $app->stdout;
-ok !$app->stderr;
-ok !$app->error_message;
-
-$app->run('-h');
-is $app->exit_code, 0;
-ok $app->stdout;
-ok !$app->stderr;
-ok !$app->error_message;
-
-done_testing;
+my @tests = (
+    {
+        Name => 'long form',
+        args => ['-help'],
+        expected_error_message => '',
+        expected_stdout => qr/^Usage:/,
+        expected_stderr => '',
+    },
+    {
+        Name => 'short form',
+        args => ['-h'],
+        expected_error_message => '',
+        expected_stdout => qr/^Usage:/,
+        expected_stderr => '',
+    },
+);
+run(@tests);

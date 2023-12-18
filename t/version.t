@@ -1,23 +1,25 @@
 use v5.36;
 
-use lib ".";
-use t::CLI;
-
 use App::Gimei;
-use Test::More;
+use lib ".";
+use t::Util qw(run);
 
-my $app = t::CLI->new;
-
-$app->run('-version');
-is $app->exit_code, 0;
-is $app->stdout,    "$App::Gimei::VERSION\n";
-ok !$app->stderr;
-ok !$app->error_message;
-
-$app->run('-v');
-is $app->exit_code, 0;
-is $app->stdout,    "$App::Gimei::VERSION\n";
-ok !$app->stderr;
-ok !$app->error_message;
-
-done_testing;
+my @tests = (
+    {
+        Name => 'long form',
+        args => ['-version'],
+        #is $app->exit_code, 0;
+        expected_error_message => '',
+        expected_stdout => "$App::Gimei::VERSION\n",
+        expected_stderr => '',
+    },
+    {
+        Name => 'short form',
+        args => ['-v'],
+        # is $app->exit_code, 0;
+        expected_error_message => '',
+        expected_stdout => "$App::Gimei::VERSION\n",
+        expected_stderr => '',
+    },
+);
+run(@tests);
