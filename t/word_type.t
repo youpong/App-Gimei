@@ -5,52 +5,46 @@ use t::Util qw(run);
 
 my @tests = (
     {
-        Name => 'default',
-        args => [],
-        # is $app->exit_code, 0;
+        Name                   => 'default',
+        args                   => [],
         expected_error_message => '',
-        expected_stdout => qr/^\S+\s\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+\s\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'name',
-        args => ['name'],
-        # is $app->exit_code, 0;
+        Name                   => 'name',
+        args                   => ['name'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+\s\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+\s\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'male',
-        args => ['male'],
-        # is $app->exit_code, 0;
+        Name                   => 'male',
+        args                   => ['male'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+\s\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+\s\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'female',
-        args => ['female'],
-        #is $app->exit_code, 0;
+        Name                   => 'female',
+        args                   => ['female'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+\s\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+\s\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'address',
-        args => ['address'],
-        # is $app->exit_code, 0;
+        Name                   => 'address',
+        args                   => ['address'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'not supported',
-        args => ['NOT_SUPPORTED'],
-        #is $app->exit_code,     255;
+        Name                   => 'not supported',
+        args                   => ['NOT_SUPPORTED'],
         expected_error_message => "Error: unknown word_type: NOT_SUPPORTED\n",
-        expected_stdout => '',
-        expected_stderr => '',
+        expected_stdout        => '',
+        expected_stderr        => '',
     },
 );
 run(@tests);

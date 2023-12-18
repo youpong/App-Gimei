@@ -5,60 +5,53 @@ use t::Util qw(run);
 
 my @tests = (
     {
-        Name => 'default',
-        args => ['name'],
-        #is $app->exit_code, 0;
+        Name                   => 'default',
+        args                   => ['name'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+\s\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+\s\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'address->romaji',
-        args => ['address:romaji'],
-        #is $app->exit_code, 255;
-        expected_error_message => 
-        "Error: rendering romaji is not supported for address\n",
+        Name                   => 'address->romaji',
+        args                   => ['address:romaji'],
+        expected_error_message =>
+          "Error: rendering romaji is not supported for address\n",
         expected_stdout => '',
         expected_stderr => '',
     },
     {
-        Name => 'gender',
-        args => ['name:gender'],
-        # is $app->exit_code, 0;
+        Name                   => 'gender',
+        args                   => ['name:gender'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'kanji',
-        args => ['name:kanji'],
-        # is $app->exit_code, 0;
+        Name                   => 'kanji',
+        args                   => ['name:kanji'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+\s\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+\s\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'hiragana',
-        args => ['name:family:hiragana'],
-        # is $app->exit_code, 0;
-       expected_error_message => '',
-       expected_stdout => qr/^\S+$/,
-       expected_stderr => '',
-    },
-    {
-        Name => 'katakana',
-        args => ['address:katakana'],
-        # is $app->exit_code, 0;
+        Name                   => 'hiragana',
+        args                   => ['name:family:hiragana'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'unknown rendering',
-        args => ['address:prefecture:romaji'],
-        #is $app->exit_code, 255;
+        Name                   => 'katakana',
+        args                   => ['address:katakana'],
+        expected_error_message => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
+    },
+    {
+        Name                   => 'unknown rendering',
+        args                   => ['address:prefecture:romaji'],
         expected_error_message =>
-        "Error: rendering romaji is not supported for address\n", 
+          "Error: rendering romaji is not supported for address\n",
         expected_stdout => '',
         expected_stderr => '',
     },

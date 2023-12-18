@@ -5,93 +5,81 @@ use t::Util qw(run);
 
 my @tests = (
     {
-        Name => 'family',
-        args => ['name:family'],
-        # is $app->exit_code, 0;
+        Name                   => 'family',
+        args                   => ['name:family'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'last',
-        args => ['name:last'],
-        # is $app->exit_code, 0;
+        Name                   => 'last',
+        args                   => ['name:last'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'given',
-        args => ['male:given'],
-        # is $app->exit_code, 0;
+        Name                   => 'given',
+        args                   => ['male:given'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'first',
-        args => ['female:first'],
-        # is $app->exit_code, 0;
+        Name                   => 'first',
+        args                   => ['female:first'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'gender',
-        args => ['name:gender'],
-        #is $app->exit_code, 0;
+        Name                   => 'gender',
+        args                   => ['name:gender'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'sex',
-        args => ['name:sex'],
-        # is $app->exit_code, 0;
+        Name                   => 'sex',
+        args                   => ['name:sex'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'unknown',
-        args => ['female:unknown'],
-        #is $app->exit_code, 255;
+        Name                   => 'unknown',
+        args                   => ['female:unknown'],
         expected_error_message => "Error: unknown subtype or rendering: unknown\n",
-        expected_stdout => '',
-        expected_stderr => '',
+        expected_stdout        => '',
+        expected_stderr        => '',
     },
     {
-        Name => 'prefecture',
-        args => ['address:prefecture'],
-        # is $app->exit_code, 0;
+        Name                   => 'prefecture',
+        args                   => ['address:prefecture'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'city',
-        args => ['address:city'],
-        # is $app->exit_code, 0;
+        Name                   => 'city',
+        args                   => ['address:city'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'town',
-        args => ['address:town'],
-        # is $app->exit_code, 0;
+        Name                   => 'town',
+        args                   => ['address:town'],
         expected_error_message => '',
-        expected_stdout => qr/^\S+$/,
-        expected_stderr => '',
+        expected_stdout        => qr/^\S+$/,
+        expected_stderr        => '',
     },
     {
-        Name => 'unknown',
-        args => ['address:unknown'],
-        #is $app->exit_code, 255;
-        expected_error_message =>
-        "Error: unknown subtype or rendering: unknown\n",
-        expected_stdout => '',
-        expected_stderr => '',
+        Name                   => 'unknown',
+        args                   => ['address:unknown'],
+        expected_error_message => "Error: unknown subtype or rendering: unknown\n",
+        expected_stdout        => '',
+        expected_stderr        => '',
     },
 );
 run(@tests);
