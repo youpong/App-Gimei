@@ -1,6 +1,6 @@
-package App::Gimei::Parser;
-
 use v5.36;
+
+package App::Gimei::Parser;
 
 use App::Gimei;
 

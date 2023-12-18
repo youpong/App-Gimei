@@ -1,6 +1,6 @@
-package App::Gimei;
-
 use v5.36;
+
+package App::Gimei;
 
 use version; our $VERSION = version->declare("v0.2.2");
 

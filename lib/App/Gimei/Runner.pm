@@ -1,6 +1,7 @@
+use v5.36;
+
 package App::Gimei::Runner;
 
-use v5.36;
 binmode STDOUT, ":utf8";
 
 use Getopt::Long;

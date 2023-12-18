@@ -1,6 +1,6 @@
-package App::Gimei::Generator;
-
 use v5.36;
+
+package App::Gimei::Generator;
 
 use Class::Tiny qw(
   word_class
