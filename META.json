@@ -34,7 +34,7 @@
       "develop" : {
          "requires" : {
             "Perl::Tidy" : "20230701",
-            "Software::License" : "0",
+            "Software::License" : "0.104005",
             "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion::Fast" : "0.04",
             "Test::PAUSE::Permissions" : "0.07",
@@ -48,6 +48,7 @@
             "Data::Gimei" : ">= v0.4.0, < v0.5.0",
             "Getopt::Long" : "2.54",
             "Pod::Find" : "1.66",
+            "Pod::Text" : "< 5.00",
             "Pod::Usage" : "2.03",
             "perl" : "v5.36.0"
          }
