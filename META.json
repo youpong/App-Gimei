@@ -33,6 +33,7 @@
       },
       "develop" : {
          "requires" : {
+            "CPAN::Uploader" : "0",
             "Minilla" : "0",
             "Perl::Tidy" : "20230701",
             "Software::License" : "0.104005",

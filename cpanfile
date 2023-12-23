@@ -16,6 +16,7 @@ on develop => sub {
     requires 'Perl::Tidy', '20230701';
     requires 'Software::License', '0.104005';
     requires 'Version::Next';
+    requires 'CPAN::Uploader';
 };
 
 on 'test' => sub {
