@@ -12,8 +12,10 @@ on configure => sub {
 };
 
 on develop => sub {
+    requires 'Minilla';
     requires 'Perl::Tidy', '20230701';
     requires 'Software::License', '0.104005';
+    requires 'Version::Next';
 };
 
 on 'test' => sub {
