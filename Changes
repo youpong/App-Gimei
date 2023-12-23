@@ -1,6 +1,8 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - [dev]add 'Software::License' module
+    - specify version <5.00 on 'Pod::Text'
 
 v0.2.3 2023-12-18T08:38:25Z
     - delete stale comment
