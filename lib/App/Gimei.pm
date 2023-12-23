@@ -83,7 +83,7 @@ You can also look for information at:
 
 =head1 LICENSE
 
-MIT
+MIT License
 
 =head1 AUTHOR
 

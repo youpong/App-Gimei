@@ -12,6 +12,7 @@ on configure => sub {
 
 on develop => sub {
     requires 'Perl::Tidy', '20230701';
+    requires 'Software::License';
 };
 
 on 'test' => sub {
