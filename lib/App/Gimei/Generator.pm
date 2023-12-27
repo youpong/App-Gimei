@@ -9,10 +9,9 @@ use Class::Tiny qw(
   gender
   word_subtype
   render
-  cache
 );
 
-sub BUILDARGS($class, %args) {
+sub BUILDARGS ( $class, %args ) {
     for my $arg (qw/word_class/) {
         die "$arg arg required" unless exists $args{$arg};
     }
@@ -22,7 +21,7 @@ sub BUILDARGS($class, %args) {
     return \%args;
 }
 
-sub execute($self, $cache) {
+sub execute ( $self, $cache ) {
     my ($word);
 
     my $key = $self->word_class . ( $self->gender // '' );

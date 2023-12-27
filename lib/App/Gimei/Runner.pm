@@ -22,7 +22,7 @@ my %conf = ( POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) );
 # methods
 #
 
-sub parse_option($self, $args_ref, $opts_ref) {
+sub parse_option ( $self, $args_ref, $opts_ref ) {
     $opts_ref->{n}   = 1;
     $opts_ref->{sep} = ', ';
 
@@ -38,7 +38,7 @@ sub parse_option($self, $args_ref, $opts_ref) {
     }
 }
 
-sub execute($self, @args) {
+sub execute ( $self, @args ) {
     my %opts;
     $self->parse_option( \@args, \%opts );
 
@@ -71,7 +71,7 @@ sub execute($self, @args) {
     return 0;
 }
 
-sub semantic_analysis(@generators) {
+sub semantic_analysis (@generators) {
     foreach my $gen (@generators) {
         if ( $gen->word_class eq 'Data::Gimei::Address' && $gen->render eq 'romaji' ) {
             die "Error: rendering romaji is not supported for address\n";

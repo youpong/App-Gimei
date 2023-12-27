@@ -10,7 +10,7 @@ use t::CLI;
 
 use Test::More;
 
-sub run(@tests) {
+sub run (@tests) {
     foreach my $t (@tests) {
         my $cli = t::CLI->run( @{ $t->{args} } );
 

@@ -4,7 +4,7 @@ package App::Gimei::Parser;
 
 use App::Gimei::Generator;
 
-sub parse_args(@args) {
+sub parse_args (@args) {
     my @generators;
 
     foreach my $arg (@args) {
@@ -19,7 +19,7 @@ sub parse_args(@args) {
 # WORD_SUBTYPE(name|male|female): 'family'     | 'given'
 # WORD_SUBTYPE(address):          'prefecture' | 'city'     | 'town'
 # RENDERING:                      'kanji'      | 'hiragana' | 'katakana' | 'romaji'
-sub parse_arg($arg) {
+sub parse_arg ($arg) {
     my ( $gen, @tokens, %params );
 
     @tokens = split( /[-:]/, $arg );
@@ -51,7 +51,7 @@ sub parse_arg($arg) {
     return App::Gimei::Generator->new(%params);
 }
 
-sub subtype_name($tokens_ref) {
+sub subtype_name ($tokens_ref) {
     my ($word_subtype);
 
     my %map = (
@@ -71,7 +71,7 @@ sub subtype_name($tokens_ref) {
     return $word_subtype;
 }
 
-sub subtype_address($tokens_ref) {
+sub subtype_address ($tokens_ref) {
     my ($word_subtype);
 
     my $token = @$tokens_ref[0] // '';
@@ -83,7 +83,7 @@ sub subtype_address($tokens_ref) {
     return $word_subtype;
 }
 
-sub render($tokens_ref) {
+sub render ($tokens_ref) {
     my $status = '';
 
     my $token = @$tokens_ref[0];

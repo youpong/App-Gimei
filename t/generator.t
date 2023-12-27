@@ -22,7 +22,7 @@ use Test::More;
 
 # test gender('male')
 {
-    my $cache = {};
+    my $cache  = {};
     my %params = (
         word_class   => 'Data::Gimei::Name',
         word_subtype => 'gender',
