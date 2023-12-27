@@ -2,7 +2,7 @@ use v5.36;
 
 package App::Gimei::Parser;
 
-use App::Gimei;
+use App::Gimei::Generator;
 
 sub parse_args {
     my (@args) = @_;

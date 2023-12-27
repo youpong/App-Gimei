@@ -2,6 +2,8 @@ use v5.36;
 
 package App::Gimei::Generator;
 
+use Data::Gimei;
+
 use Class::Tiny qw(
   word_class
   gender
@@ -9,7 +11,6 @@ use Class::Tiny qw(
   render
   cache
 );
-use Data::Gimei;
 
 sub BUILDARGS {
     my ( $class, %args ) = @_;
