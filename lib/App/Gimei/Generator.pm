@@ -12,9 +12,7 @@ use Class::Tiny qw(
   cache
 );
 
-sub BUILDARGS {
-    my ( $class, %args ) = @_;
-
+sub BUILDARGS($class, %args) {
     for my $arg (qw/word_class/) {
         die "$arg arg required" unless exists $args{$arg};
     }
@@ -24,8 +22,7 @@ sub BUILDARGS {
     return \%args;
 }
 
-sub execute {
-    my ( $self, $cache ) = @_;
+sub execute($self, $cache) {
     my ($word);
 
     my $key = $self->word_class . ( $self->gender // '' );
