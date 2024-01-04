@@ -68,7 +68,7 @@ sub execute ( $self, @args ) {
 }
 
 sub semantic_analysis ($generators) {
-    foreach my $gen ($generators->to_list()) {
+    foreach my $gen ( $generators->to_list() ) {
         if ( $gen->word_class eq 'Data::Gimei::Address' && $gen->render eq 'romaji' ) {
             die "Error: rendering romaji is not supported for address\n";
         }

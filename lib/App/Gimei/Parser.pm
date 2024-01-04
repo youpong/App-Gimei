@@ -9,7 +9,7 @@ sub parse_args (@args) {
     my $generators = App::Gimei::Generators->new();
 
     foreach my $arg (@args) {
-        $generators->push(parse_arg($arg));
+        $generators->push( parse_arg($arg) );
     }
 
     return $generators;
