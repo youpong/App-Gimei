@@ -56,23 +56,19 @@ sub execute ( $self, @args ) {
         push @args, 'name:kanji';
     }
 
-    my @generators = App::Gimei::Parser::parse_args(@args);
+    my $generators = App::Gimei::Parser::parse_args(@args);
 
-    semantic_analysis(@generators);
+    semantic_analysis($generators);
 
     foreach ( 1 .. $opts{n} ) {
-        my ( @words, %cache );
-        foreach my $g (@generators) {
-            push @words, $g->execute( \%cache );
-        }
-        say join $opts{sep}, @words;
+        say join $opts{sep}, $generators->execute();
     }
 
     return 0;
 }
 
-sub semantic_analysis (@generators) {
-    foreach my $gen (@generators) {
+sub semantic_analysis ($generators) {
+    foreach my $gen ($generators->to_list()) {
         if ( $gen->word_class eq 'Data::Gimei::Address' && $gen->render eq 'romaji' ) {
             die "Error: rendering romaji is not supported for address\n";
         }

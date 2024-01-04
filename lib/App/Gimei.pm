@@ -7,6 +7,7 @@ use version; our $VERSION = version->declare("v0.2.4");
 use App::Gimei::Runner;
 use App::Gimei::Parser;
 use App::Gimei::Generator;
+use App::Gimei::Generators;
 
 1;
 __END__

@@ -3,15 +3,16 @@ use v5.36;
 package App::Gimei::Parser;
 
 use App::Gimei::Generator;
+use App::Gimei::Generators;
 
 sub parse_args (@args) {
-    my @generators;
+    my $generators = App::Gimei::Generators->new();
 
     foreach my $arg (@args) {
-        push @generators, parse_arg($arg);
+        $generators->push(parse_arg($arg));
     }
 
-    return @generators;
+    return $generators;
 }
 
 # ARG:                            [WORD_TYPE] [':' WORD_SUB_TYPE] [':' RENDERING]
