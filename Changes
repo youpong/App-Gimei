@@ -1,6 +1,7 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - introduce Generators
     - organize packages
     - rewrite with subroutine signature
     - perltidy
