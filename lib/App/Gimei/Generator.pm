@@ -8,7 +8,7 @@ use Class::Tiny qw(
   word_class
   gender
   word_subtype
-  render
+  rendering
 );
 
 sub BUILDARGS ( $class, %args ) {
@@ -16,7 +16,7 @@ sub BUILDARGS ( $class, %args ) {
         die "$arg arg required" unless exists $args{$arg};
     }
 
-    $args{render} //= 'kanji';
+    $args{rendering} //= 'kanji';
 
     return \%args;
 }
@@ -39,7 +39,7 @@ sub execute ( $self, $cache ) {
         $word = $word->$call();
     }
 
-    my $call = $word->can( $self->render );
+    my $call = $word->can( $self->rendering );
     $word = $word->$call();
 
     return $word;

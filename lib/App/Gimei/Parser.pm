@@ -15,45 +15,52 @@ sub parse_args (@args) {
     return $generators;
 }
 
-# ARG:                            [WORD_TYPE] [':' WORD_SUB_TYPE] [':' RENDERING]
-# WORD_TYPE:                      'name' | 'male' | 'female' | 'address'
-# WORD_SUBTYPE(name|male|female): 'family'     | 'given'
-# WORD_SUBTYPE(address):          'prefecture' | 'city'     | 'town'
-# RENDERING:                      'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+# BNF-like notation
+#
+# ARG:          [WORD_TYPE] [':' RENDERING]
+#
+# WORD_TYPE:　   TYPE_NAME [':' SUBTYPE_NAME] | TYPE_ADDRESS [':' SUBTYPE_ADDRESS ]
+# TYPE_NAME:       'name'       | 'male'     | 'female'
+# SUBTYPE_NAME:    'family'     | 'given'
+# TYPE_ADDRESS:    'address'
+# SUBTYPE_ADDRESS: 'prefecture' | 'city'     | 'town'
+#
+# RENDERING:    'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+# (DO NOT support romaji rendering for type address)
 sub parse_arg ($arg) {
     my ( $gen, @tokens, %params );
 
     @tokens = split( /[-:]/, $arg );
 
     my $token = shift @tokens;
-    if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) {
+    if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) { # TYPE_NAME
         $params{word_class} = "Data::Gimei::Name";
         if ( $token ne 'name' ) {
             $params{gender} = $token;
         }
         $params{word_subtype} = subtype_name( \@tokens );
-    } elsif ( $token eq 'address' ) {
+    } elsif ( $token eq 'address' ) { # TYPE_ADDRESS
         $params{word_class}   = "Data::Gimei::Address";
         $params{word_subtype} = subtype_address( \@tokens );
     } else {
         die "Error: unknown word_type: $token\n";
     }
 
-    my ( $ok, $render ) = render( \@tokens );
+    my ( $ok, $rendering ) = rendering( \@tokens );
     if ( !$ok ) {
         if ( defined $params{word_subtype} ) {
-            die "Error: unknown rendering: $render\n";
+            die "Error: unknown rendering: $rendering\n";
         } else {
-            die "Error: unknown subtype or rendering: $render\n";
+            die "Error: unknown subtype or rendering: $rendering\n";
         }
     }
-    $params{render} = $render;
+    $params{rendering} = $rendering;
 
     return App::Gimei::Generator->new(%params);
 }
 
 sub subtype_name ($tokens_ref) {
-    my ($word_subtype);
+    my $word_subtype;
 
     my %map = (
         'family' => 'surname',
@@ -84,7 +91,7 @@ sub subtype_address ($tokens_ref) {
     return $word_subtype;
 }
 
-sub render ($tokens_ref) {
+sub rendering ($tokens_ref) {
     my $status = '';
 
     my $token = @$tokens_ref[0];
