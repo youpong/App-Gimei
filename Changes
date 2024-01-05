@@ -5,6 +5,7 @@ Revision history for Perl extension App-Gimei
     - organize packages
     - rewrite with subroutine signature
     - perltidy
+    - change field name rendering
 
 v0.2.4 2023-12-23T12:27:01Z
     - [dev]add modules
