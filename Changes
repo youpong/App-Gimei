@@ -2,6 +2,7 @@ Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
     - introduce Generators
+    - Parser was defined as a class
     - organize packages
     - rewrite with subroutine signature
     - perltidy
