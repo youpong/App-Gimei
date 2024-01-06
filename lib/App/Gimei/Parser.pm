@@ -5,11 +5,13 @@ package App::Gimei::Parser;
 use App::Gimei::Generator;
 use App::Gimei::Generators;
 
-sub parse_args (@args) {
+use Class::Tiny qw ( args );
+
+sub parse ($self) {
     my $generators = App::Gimei::Generators->new();
 
-    foreach my $arg (@args) {
-        $generators->push( parse_arg($arg) );
+    foreach my $arg (@{$self->args}) {
+        $generators->push( $self->parse_arg($arg) );
     }
 
     return $generators;
@@ -27,7 +29,7 @@ sub parse_args (@args) {
 #
 # RENDERING:    'kanji'      | 'hiragana' | 'katakana' | 'romaji'
 # (DO NOT support romaji rendering for type address)
-sub parse_arg ($arg) {
+sub parse_arg ($self, $arg) {
     my ( $gen, @tokens, %params );
 
     @tokens = split( /[-:]/, $arg );
@@ -38,15 +40,15 @@ sub parse_arg ($arg) {
         if ( $token ne 'name' ) {
             $params{gender} = $token;
         }
-        $params{word_subtype} = subtype_name( \@tokens );
+        $params{word_subtype} = $self->subtype_name( \@tokens );
     } elsif ( $token eq 'address' ) { # TYPE_ADDRESS
         $params{word_class}   = "Data::Gimei::Address";
-        $params{word_subtype} = subtype_address( \@tokens );
+        $params{word_subtype} = $self->subtype_address( \@tokens );
     } else {
         die "Error: unknown word_type: $token\n";
     }
 
-    my ( $ok, $rendering ) = rendering( \@tokens );
+    my ( $ok, $rendering ) = $self->rendering( \@tokens );
     if ( !$ok ) {
         if ( defined $params{word_subtype} ) {
             die "Error: unknown rendering: $rendering\n";
@@ -59,7 +61,7 @@ sub parse_arg ($arg) {
     return App::Gimei::Generator->new(%params);
 }
 
-sub subtype_name ($tokens_ref) {
+sub subtype_name ($self, $tokens_ref) {
     my $word_subtype;
 
     my %map = (
@@ -79,7 +81,7 @@ sub subtype_name ($tokens_ref) {
     return $word_subtype;
 }
 
-sub subtype_address ($tokens_ref) {
+sub subtype_address ($self, $tokens_ref) {
     my ($word_subtype);
 
     my $token = @$tokens_ref[0] // '';
@@ -91,7 +93,7 @@ sub subtype_address ($tokens_ref) {
     return $word_subtype;
 }
 
-sub rendering ($tokens_ref) {
+sub rendering ($self, $tokens_ref) {
     my $status = '';
 
     my $token = @$tokens_ref[0];
