@@ -9,6 +9,7 @@ use Pod::Usage;
 use Pod::Find qw( pod_where );
 
 use App::Gimei::Parser;
+use App::Gimei::Tokenizer;
 
 use Class::Tiny;
 
@@ -56,7 +57,13 @@ sub execute ( $self, @args ) {
         push @args, 'name:kanji';
     }
 
-    my $parser = App::Gimei::Parser->new(args => \@args);
+    my $tokenizer = App::Gimei::Tokenizer->new(args => \@args);
+    my $tokens = $tokenizer->tokenize();
+    # foreach my $token (@$tokens) {
+    #      say $token;
+    # }
+    # say "tokenized.";    
+    my $parser = App::Gimei::Parser->new(tokens => $tokens);
     my $generators = $parser->parse();
 
     semantic_analysis($generators);
