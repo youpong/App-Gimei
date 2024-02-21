@@ -38,7 +38,6 @@ sub parse_stmt ($self) {
     my ( $gen, %params );
 
     my $token = shift @{$self->tokens};
-    # say "stmt: " . $token->type;
     if ( $token->type == $TK_NAME || $token->type == $TK_MALE || $token->type == $TK_FEMALE ) { # TYPE_NAME
         $params{word_class} = "Data::Gimei::Name";
         if ( $token->type == $TK_MALE ) {
@@ -47,28 +46,22 @@ sub parse_stmt ($self) {
             $params{gender} = 'female';
         }
         $params{word_subtype} = $self->subtype_name();
-        # say "word_subtype: ". $params{word_subtype};
     } elsif ( $token->type == $TK_ADDRESS ) { # TYPE_ADDRESS
         $params{word_class}   = "Data::Gimei::Address";
         $params{word_subtype} = $self->subtype_address();
     } else {
-        die "Error: unknown word_type: $token->name\n";
+        die "Error: unknown word_type: $token->{name}\n";
     }
 
     $params{rendering} = $self->rendering();
-    # if ( !$ok ) {
-    #     if ( defined $params{word_subtype} ) {
-    #         die "Error: unknown rendering: $rendering\n";
-    #     } else {
-    #         die "Error: unknown subtype or rendering: $rendering\n";
-    #     }
-    # }
-    # $params{rendering} = $rendering;
 
     $token = shift(@{$self->tokens});
-    #say "72: " . $token;
     if ($token->type != $TK_END) {
-        die "Error: expect TK_END but got: $token->type\n";
+        if ( defined $params{word_subtype} ) {
+            die "Error: unknown rendering: $token->{name}\n";
+        } else {
+            die "Error: unknown subtype or rendering: $token->{name}\n";
+        }
     }
 
     return App::Gimei::Generator->new(%params);
@@ -76,7 +69,6 @@ sub parse_stmt ($self) {
 
 sub subtype_name ($self) {
     my $token = shift(@{$self->tokens});
-    #say "subtype_name: " . $token;
     if ($token->type == $TK_FAMILY || $token->type == $TK_LAST) {
         return 'surname';
     } elsif ($token->type == $TK_GIVEN || $token->type == $TK_FIRST) {
@@ -105,7 +97,6 @@ sub subtype_address ($self) {
 
 sub rendering ($self) {
     my $token = shift(@{$self->tokens});
-    #say "rendering: " . $token;
     if ($token->type == $TK_KANJI ) {
         return 'kanji';
     } elsif ($token->type == $TK_HIRAGANA) {
