@@ -14,9 +14,12 @@ use Test::More;
 
     my $tokens = $t->tokenize();
 
-    is_deeply($tokens, 
-        [$TK_NAME, $TK_KANJI, $TK_END, $TK_ADDRESS, $TK_END]);
- 
+    my @data = ([$TK_NAME, 'name'], [$TK_KANJI, 'kanji'], [$TK_END, undef], [$TK_ADDRESS, 'address'], [$TK_END, undef]);
+    foreach my $t (@data) {
+        my $got = shift(@$tokens);
+        is $got->type, ${$t}[0];
+        is $got->name, ${$t}[1];
+    }
 }
 
 done_testing();

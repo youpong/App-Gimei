@@ -60,7 +60,7 @@ sub execute ( $self, @args ) {
     my $tokenizer = App::Gimei::Tokenizer->new(args => \@args);
     my $tokens = $tokenizer->tokenize();
     # foreach my $token (@$tokens) {
-    #      say $token;
+    #      say $token->type;
     # }
     # say "tokenized.";    
     my $parser = App::Gimei::Parser->new(tokens => $tokens);

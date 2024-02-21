@@ -38,21 +38,21 @@ sub parse_stmt ($self) {
     my ( $gen, %params );
 
     my $token = shift @{$self->tokens};
-    #say "stmt: " . $token;
-    if ( $token == $TK_NAME || $token == $TK_MALE || $token == $TK_FEMALE ) { # TYPE_NAME
+    # say "stmt: " . $token->type;
+    if ( $token->type == $TK_NAME || $token->type == $TK_MALE || $token->type == $TK_FEMALE ) { # TYPE_NAME
         $params{word_class} = "Data::Gimei::Name";
-        if ( $token == $TK_MALE ) {
+        if ( $token->type == $TK_MALE ) {
             $params{gender} = 'male';
-        } elsif ( $token == $TK_FEMALE ) {
+        } elsif ( $token->type == $TK_FEMALE ) {
             $params{gender} = 'female';
         }
         $params{word_subtype} = $self->subtype_name();
         # say "word_subtype: ". $params{word_subtype};
-    } elsif ( $token == $TK_ADDRESS ) { # TYPE_ADDRESS
+    } elsif ( $token->type == $TK_ADDRESS ) { # TYPE_ADDRESS
         $params{word_class}   = "Data::Gimei::Address";
         $params{word_subtype} = $self->subtype_address();
     } else {
-        die "Error: unknown word_type: $token\n";
+        die "Error: unknown word_type: $token->name\n";
     }
 
     $params{rendering} = $self->rendering();
@@ -67,8 +67,8 @@ sub parse_stmt ($self) {
 
     $token = shift(@{$self->tokens});
     #say "72: " . $token;
-    if ($token != $TK_END) {
-        die "Error: expect TK_END but got: $token\n";
+    if ($token->type != $TK_END) {
+        die "Error: expect TK_END but got: $token->type\n";
     }
 
     return App::Gimei::Generator->new(%params);
@@ -77,11 +77,11 @@ sub parse_stmt ($self) {
 sub subtype_name ($self) {
     my $token = shift(@{$self->tokens});
     #say "subtype_name: " . $token;
-    if ($token == $TK_FAMILY || $token == $TK_LAST) {
+    if ($token->type == $TK_FAMILY || $token->type == $TK_LAST) {
         return 'surname';
-    } elsif ($token == $TK_GIVEN || $token == $TK_FIRST) {
+    } elsif ($token->type == $TK_GIVEN || $token->type == $TK_FIRST) {
         return 'forename';
-    } elsif ($token == $TK_GENDER || $token == $TK_SEX) {
+    } elsif ($token->type == $TK_GENDER || $token->type == $TK_SEX) {
         return 'gender';
     } 
 
@@ -91,11 +91,11 @@ sub subtype_name ($self) {
 
 sub subtype_address ($self) {
     my $token = shift(@{$self->tokens});
-    if ( $token == $TK_PREFECTURE) {
+    if ( $token->type == $TK_PREFECTURE) {
         return 'prefecture';
-    } elsif ($token == $TK_CITY) {
+    } elsif ($token->type == $TK_CITY) {
         return 'city';
-    } elsif ($token == $TK_TOWN) {
+    } elsif ($token->type == $TK_TOWN) {
         return 'town';
     }
 
@@ -106,13 +106,13 @@ sub subtype_address ($self) {
 sub rendering ($self) {
     my $token = shift(@{$self->tokens});
     #say "rendering: " . $token;
-    if ($token == $TK_KANJI ) {
+    if ($token->type == $TK_KANJI ) {
         return 'kanji';
-    } elsif ($token == $TK_HIRAGANA) {
+    } elsif ($token->type == $TK_HIRAGANA) {
         return 'hiragana';
-    } elsif ($token == $TK_KATAKANA) {
+    } elsif ($token->type == $TK_KATAKANA) {
         return 'katakana';
-    } elsif ($token == $TK_ROMAJI) {
+    } elsif ($token->type == $TK_ROMAJI) {
         return 'romaji';
     } 
     

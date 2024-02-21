@@ -9,6 +9,8 @@ our @EXPORT_OK = qw($TK_NAME $TK_MALE $TK_FEMALE $TK_ADDRESS
     $TK_KANJI $TK_HIRAGANA $TK_KATAKANA $TK_ROMAJI
     $TK_END $TK_UNKNOWN);
 
+use Class::Tiny qw ( type name );
+
 my $iota = 0xF500_0000;
 #my $iota = 0x0;
 

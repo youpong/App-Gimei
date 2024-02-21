@@ -41,9 +41,10 @@ sub tokenize($self) {
     foreach my $arg (@{$self->args}) {
         my @tokens = split(/[-:]/, $arg);
         foreach my $token (@tokens) {
-            push(@result, $map{$token} // $TK_UNKNOWN);
+            push(@result, App::Gimei::Token->new(
+                type => $map{$token} // $TK_UNKNOWN, name => $token));
         }
-        push(@result, $TK_END);
+        push(@result, App::Gimei::Token->new(type => $TK_END));
     }
     return \@result;
 }
