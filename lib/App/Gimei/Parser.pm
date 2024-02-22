@@ -49,6 +49,7 @@ sub parse_arg ( $self, $arg ) {
     }
 
     $params{rendering} = $self->rendering( \@tokens );
+    
     if (@tokens) {
         if ( defined $params{word_subtype} ) {
             die "Error: unknown rendering: $tokens[0]\n";
