@@ -48,15 +48,14 @@ sub parse_arg ($self, $arg) {
         die "Error: unknown word_type: $token\n";
     }
 
-    my ( $ok, $rendering ) = $self->rendering( \@tokens );
-    if ( !$ok ) {
+    $params{rendering} = $self->rendering( \@tokens );
+    if ( @tokens ) {
         if ( defined $params{word_subtype} ) {
-            die "Error: unknown rendering: $rendering\n";
+            die "Error: unknown rendering: $tokens[0]\n";
         } else {
-            die "Error: unknown subtype or rendering: $rendering\n";
+            die "Error: unknown subtype or rendering: $tokens[0]\n";
         }
     }
-    $params{rendering} = $rendering;
 
     return App::Gimei::Generator->new(%params);
 }
@@ -94,19 +93,19 @@ sub subtype_address ($self, $tokens_ref) {
 }
 
 sub rendering ($self, $tokens_ref) {
-    my $status = '';
+    my $rendering = 'kanji';
 
-    my $token = @$tokens_ref[0];
-    if (   !defined $token
-        || $token eq 'kanji'
-        || $token eq 'hiragana'
-        || $token eq 'katakana'
-        || $token eq 'romaji' )
+    my $token = @$tokens_ref[0] // '';
+    if ($token eq 'kanji' ||
+        $token eq 'hiragana' ||
+        $token eq 'katakana' ||
+        $token eq 'romaji' )
     {
-        $status = 'ok';
+        shift @$tokens_ref;
+        $rendering = $token;
     }
 
-    return ( $status, $token );
+    return $rendering;
 }
 
 1;
