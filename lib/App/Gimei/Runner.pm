@@ -8,6 +8,7 @@ use Getopt::Long;
 use Pod::Usage;
 use Pod::Find qw( pod_where );
 
+use App::Gimei;
 use App::Gimei::Parser;
 
 use Class::Tiny;
