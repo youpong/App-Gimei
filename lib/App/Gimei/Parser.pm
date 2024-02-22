@@ -10,7 +10,7 @@ use Class::Tiny qw ( args );
 sub parse ($self) {
     my $generators = App::Gimei::Generators->new();
 
-    foreach my $arg (@{$self->args}) {
+    foreach my $arg ( @{ $self->args } ) {
         $generators->push( $self->parse_arg($arg) );
     }
 
@@ -29,19 +29,19 @@ sub parse ($self) {
 #
 # RENDERING:    'kanji'      | 'hiragana' | 'katakana' | 'romaji'
 # (DO NOT support romaji rendering for type address)
-sub parse_arg ($self, $arg) {
+sub parse_arg ( $self, $arg ) {
     my ( $gen, @tokens, %params );
 
     @tokens = split( /[-:]/, $arg );
 
     my $token = shift @tokens;
-    if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) { # TYPE_NAME
+    if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) {    # TYPE_NAME
         $params{word_class} = "Data::Gimei::Name";
         if ( $token ne 'name' ) {
             $params{gender} = $token;
         }
         $params{word_subtype} = $self->subtype_name( \@tokens );
-    } elsif ( $token eq 'address' ) { # TYPE_ADDRESS
+    } elsif ( $token eq 'address' ) {                                      # TYPE_ADDRESS
         $params{word_class}   = "Data::Gimei::Address";
         $params{word_subtype} = $self->subtype_address( \@tokens );
     } else {
@@ -49,7 +49,7 @@ sub parse_arg ($self, $arg) {
     }
 
     $params{rendering} = $self->rendering( \@tokens );
-    if ( @tokens ) {
+    if (@tokens) {
         if ( defined $params{word_subtype} ) {
             die "Error: unknown rendering: $tokens[0]\n";
         } else {
@@ -60,7 +60,7 @@ sub parse_arg ($self, $arg) {
     return App::Gimei::Generator->new(%params);
 }
 
-sub subtype_name ($self, $tokens_ref) {
+sub subtype_name ( $self, $tokens_ref ) {
     my $word_subtype;
 
     my %map = (
@@ -80,7 +80,7 @@ sub subtype_name ($self, $tokens_ref) {
     return $word_subtype;
 }
 
-sub subtype_address ($self, $tokens_ref) {
+sub subtype_address ( $self, $tokens_ref ) {
     my ($word_subtype);
 
     my $token = @$tokens_ref[0] // '';
@@ -92,14 +92,14 @@ sub subtype_address ($self, $tokens_ref) {
     return $word_subtype;
 }
 
-sub rendering ($self, $tokens_ref) {
+sub rendering ( $self, $tokens_ref ) {
     my $rendering = 'kanji';
 
     my $token = @$tokens_ref[0] // '';
-    if ($token eq 'kanji' ||
-        $token eq 'hiragana' ||
-        $token eq 'katakana' ||
-        $token eq 'romaji' )
+    if (   $token eq 'kanji'
+        || $token eq 'hiragana'
+        || $token eq 'katakana'
+        || $token eq 'romaji' )
     {
         shift @$tokens_ref;
         $rendering = $token;

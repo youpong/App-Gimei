@@ -57,7 +57,7 @@ sub execute ( $self, @args ) {
         push @args, 'name:kanji';
     }
 
-    my $parser = App::Gimei::Parser->new(args => \@args);
+    my $parser     = App::Gimei::Parser->new( args => \@args );
     my $generators = $parser->parse();
 
     semantic_analysis($generators);
