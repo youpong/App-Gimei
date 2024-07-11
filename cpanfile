@@ -5,7 +5,7 @@ requires 'Data::Gimei',  '>=v0.4.0, <v0.5.0';
 requires 'Getopt::Long', '2.54';
 requires 'Pod::Find',    '1.66';
 requires 'Pod::Usage',   '2.03';
-requires 'Pod::Text',    '<5.00';
+requires 'Pod::Text',    'v6.0.0';
 
 on configure => sub {
     requires 'Module::Build::Tiny', '0.046';

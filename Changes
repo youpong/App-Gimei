@@ -1,6 +1,7 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - update podlators version
 
 v0.2.6 2024-02-27T17:11:58Z
     - fix garbled text in help option
