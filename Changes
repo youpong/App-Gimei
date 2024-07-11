@@ -1,6 +1,8 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+
+v0.2.7 2024-07-11T18:29:47Z
     - update cpanfile
     - update perl version on GitHub Actions
     - use Test2::Bundle::More instead of Test::More
