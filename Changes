@@ -1,7 +1,9 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
-    - update podlators version
+    - update cpanfile
+    - update perl version on GitHub Actions
+    - use Test2::Bundle::More instead of Test::More
 
 v0.2.6 2024-02-27T17:11:58Z
     - fix garbled text in help option
