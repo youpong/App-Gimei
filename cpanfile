@@ -1,8 +1,8 @@
 requires 'perl', 'v5.36.0';
 
 requires 'Class::Tiny',  '1.008';
-requires 'Data::Gimei',  '>=v0.4.0, <v0.5.0';
-requires 'Getopt::Long', '<=2.57';              # error 2.58
+requires 'Data::Gimei',  'v0.4.2';
+requires 'Getopt::Long', '2.58';
 requires 'Pod::Find',    '1.67';
 requires 'Pod::Usage',   '2.03';
 requires 'Pod::Text',    'v6.0.0';

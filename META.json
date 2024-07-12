@@ -48,8 +48,8 @@
       "runtime" : {
          "requires" : {
             "Class::Tiny" : "1.008",
-            "Data::Gimei" : ">= v0.4.0, < v0.5.0",
-            "Getopt::Long" : "<= 2.57",
+            "Data::Gimei" : "v0.4.2",
+            "Getopt::Long" : "2.58",
             "Pod::Find" : "1.67",
             "Pod::Text" : "v6.0.0",
             "Pod::Usage" : "2.03",

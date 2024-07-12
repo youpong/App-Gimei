@@ -1,6 +1,7 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - support Getopt::Long-2.58
 
 v0.2.7 2024-07-11T18:29:47Z
     - update cpanfile
