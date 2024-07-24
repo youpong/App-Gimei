@@ -5,5 +5,3 @@ use v5.38;
 use App::Gimei::Runner;
 
 App::Gimei::Runner->new->execute(@ARGV);
-
-__END__
