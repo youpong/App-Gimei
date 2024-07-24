@@ -1,4 +1,4 @@
-use v5.36;
+use v5.38;
 
 package App::Gimei::Parser;
 
@@ -108,5 +108,3 @@ sub rendering ( $self, $tokens_ref ) {
 
     return $rendering;
 }
-
-1;

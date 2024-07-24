@@ -1,10 +1,9 @@
-use v5.36;
+use v5.38;
 
 package App::Gimei;
 
 use version; our $VERSION = version->declare("v0.2.8");
 
-1;
 __END__
 
 =encoding utf-8

@@ -53,7 +53,7 @@
             "Pod::Find" : "1.67",
             "Pod::Text" : "v6.0.0",
             "Pod::Usage" : "2.03",
-            "perl" : "v5.36.0"
+            "perl" : "v5.38.0"
          }
       },
       "test" : {
