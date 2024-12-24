@@ -1,4 +1,4 @@
-requires 'perl', 'v5.36.0';
+requires 'perl', 'v5.38.0';
 
 requires 'Class::Tiny',  '1.008';
 requires 'Data::Gimei',  'v0.4.2';

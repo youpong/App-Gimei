@@ -1,4 +1,4 @@
-use v5.36;
+use v5.38;
 
 package App::Gimei::Runner;
 
@@ -76,5 +76,3 @@ sub semantic_analysis ($generators) {
         }
     }
 }
-
-1;

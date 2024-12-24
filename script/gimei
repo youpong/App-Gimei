@@ -1,9 +1,7 @@
 #!/usr/bin/env perl
 
-use v5.36;
+use v5.38;
 
 use App::Gimei::Runner;
 
 App::Gimei::Runner->new->execute(@ARGV);
-
-__END__
