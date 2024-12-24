@@ -46,11 +46,12 @@ Omitting ARGS is equivalent to specifying name:kanji.
 
 # DESCRIPTION
 
-App::Gimei is a command-line tool for Data::Gimei, a module designed to generate fake
+App::Gimei is a command-line tool for Data::Gimei, a module that generates fake
 Japanese names and addresses.
 Generated names include a first name, a last name, and their associated gender. Names
-are available in kanji, hiragana, katakana, and romanized forms.
-Addresses include a prefecture, city, and town, and can be generated in kanji, 
+are available in kanji, hiragana, katakana, and romanized forms, where hiragana, 
+katakana, and romanized forms are phonetic renderings for kanji.
+Addresses include a prefecture, city, and town, and can be generated in kanji,
 hiragana or katakana.
 The output format can be customized using specific options. Note that the gender
 notation cannot be changed.
