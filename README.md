@@ -40,8 +40,8 @@ Omitting ARGS is equivalent to specifying name:kanji.
     WORD_SUBTYPE('address'): 'prefecture', 'city' or 'town'
     RENDERING:               'kanji', 'hiragana', 'katakana' or 'romaji'
 
-\- WORD\_TYPE 'address' does not support RENDERING romaji.
-\- WORD\_SUBTYPE('name') 'sex' ignore RENDERING.
+- WORD\_TYPE 'address' does not support RENDERING romaji.
+- WORD\_SUBTYPE('name') 'sex' ignore RENDERING.
 
 # DESCRIPTION
 
