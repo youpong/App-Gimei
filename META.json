@@ -1,5 +1,5 @@
 {
-   "abstract" : "a CLI for Data::Gimei",
+   "abstract" : "A CLI app for Data::Gimei, a module generating fake Japanese names and addresses.",
    "author" : [
       "NAKAJIMA Yusaku <youpong@cpan.org>"
    ],

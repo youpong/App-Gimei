@@ -1,7 +1,8 @@
 [![Actions Status](https://github.com/youpong/App-Gimei/workflows/test/badge.svg)](https://github.com/youpong/App-Gimei/actions) [![MetaCPAN Release](https://badge.fury.io/pl/App-Gimei.svg)](https://metacpan.org/release/App-Gimei)
 # NAME
 
-App::Gimei - a CLI for Data::Gimei
+App::Gimei - A CLI app for Data::Gimei, a module generating fake
+Japanese names and addresses.
 
 # SYNOPSIS
 
@@ -9,9 +10,9 @@ App::Gimei - a CLI for Data::Gimei
 
     > gimei
     松島 孝太
-    > gimei name:kanji name:katakana
-    谷川 加愛, タニガワ クレア
-    > gimei -sep '/' address:prefecture-kanji address:town-kanji
+    > gimei name:kanji name:katakana name:romaji
+    谷川 加愛, タニガワ クレア, Kurea Tanigawa
+    > gimei -sep '/' address:prefecture:kanji address:town:kanji
     埼玉県/桜ケ丘町
     > gimei -n 3 name name:hiragana
     山本 公史, やまもと ひろし
@@ -33,7 +34,7 @@ Omitting ARGS is equivalent to specifying name:kanji.
 
 ## ARGS
 
-    [WORD_TYPE] [: WORD_SUBTYPE] [- RENDERING]
+    WORD_TYPE [: WORD_SUBTYPE] [: RENDERING]
 
     WORD_TYPE:               'name' or 'address'
     WORD_SUBTYPE('name'):    'last', 'first' or 'sex'
@@ -45,7 +46,14 @@ Omitting ARGS is equivalent to specifying name:kanji.
 
 # DESCRIPTION
 
-App::Gimei is a CLI for Data::Gimei generates fake data that people's name in Japanese.
+App::Gimei is a command-line tool for Data::Gimei, a module designed to generate fake
+Japanese names and addresses.
+Generated names include a first name, a last name, and their associated gender. Names
+are available in kanji, hiragana, katakana, and romanized forms.
+Addresses include a prefecture, city, and town, and can be generated in kanji, 
+hiragana or katakana.
+The output format can be customized using specific options. Note that the gender
+notation cannot be changed.
 
 # INSTALL
 
