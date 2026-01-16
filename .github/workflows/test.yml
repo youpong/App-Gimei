@@ -15,8 +15,8 @@ jobs:
         os: [windows-latest, macos-latest, ubuntu-latest]
         perl: ["5.42", "5.40"]
         include:
-          -os: windows-latest
-          distribution: strawberry
+          - os: windows-latest
+            distribution: strawberry
 
     steps:
       - uses: actions/checkout@v6
