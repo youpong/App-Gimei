@@ -3,7 +3,7 @@ requires 'perl', 'v5.40.0';
 requires 'Class::Tiny',  '1.008';
 requires 'Data::Gimei',  'v0.4.3';
 requires 'Getopt::Long', '2.58';
-requires 'Pod::Find',    '1.66'; # conflicts later 1.67
+requires 'Pod::Find',    '1.65';  # conflicts lator than 1.65 on Strawberry Perl for Windows
 requires 'Pod::Usage',   '2.05';
 requires 'Pod::Text',    'v6.0.2';
 
@@ -22,6 +22,6 @@ on develop => sub {
 on 'test' => sub {
     requires 'Capture::Tiny',       '0.50';
     requires 'Test2::Bundle::More', '1.302219';
-    requires 'Unicode::GCString',   '2013.10';    # conflicts occur later than 2013.10 
+    requires 'Unicode::GCString',   '2013.10';    # conflicts later than 2013.10 
     requires 'Capture::Tiny',       '0.50';
 };
