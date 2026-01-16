@@ -12,14 +12,15 @@ on configure => sub {
 };
 
 on develop => sub {
+    requires 'CPAN::Uploader',    '0.103018';
     requires 'Minilla',           'v3.1.29';
     requires 'Perl::Tidy',        '20260109';
     requires 'Software::License', '0.104007';
     requires 'Version::Next',     '1.000';
-    requires 'CPAN::Uploader',    '0.103018';
 };
 
 on 'test' => sub {
+    requires 'Capture::Tiny',       '0.50';
     requires 'Test2::Bundle::More', '1.302219';
     requires 'Unicode::GCString',   '2013.10';    # conflicts occur later than 2013.10 
     requires 'Capture::Tiny',       '0.50';
