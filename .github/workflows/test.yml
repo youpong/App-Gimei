@@ -20,7 +20,7 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       - name: Cleanup local
-        run: rm -rf local
+        run: Remove-Item -Recurse -Force local -ErrorAction SilentlyContinue
         if: runner.os == 'Windows'    
       - run: cpanm -n --with-configure --installdeps .
       - run: |
