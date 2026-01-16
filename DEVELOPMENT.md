@@ -1,10 +1,11 @@
 # DEVELOPMENT
 
-We use `Minilla` as our authoring tool.
+We use `Minilla` as our authoring tool and `Carton` as our module dependency
+manager.
 
-## Development Environment
+## How to Setup Development Environment
 ```bash
-$ cpanm -n --with-develop --installdeps .
+$ carton install --deployment
 ```
 
 ## How to Test

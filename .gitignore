@@ -15,6 +15,7 @@
 /.carton/
 /.carmel/
 /local/
+/vendor/
 
 nytprof.out
 nytprof/
