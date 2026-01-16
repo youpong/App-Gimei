@@ -12,10 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-#        os: [windows-latest, macos-latest, ubuntu-latest]
-#        perl: ["5.42", "5.40"]
-        os: [windows-latest]
-        perl: ["5.40"]
+        os: [ windows-latest, macos-latest, ubuntu-latest ]
+        perl: [ "5.42", "5.40" ]
 
     steps:
       - uses: actions/checkout@v6
