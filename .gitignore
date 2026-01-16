@@ -1,6 +1,8 @@
 # Emacs work files
 \#*#
 
+/.perl-version
+
 /.build/
 /_build/
 /Build
