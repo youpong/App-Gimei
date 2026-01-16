@@ -22,6 +22,6 @@ on develop => sub {
 on 'test' => sub {
     requires 'Capture::Tiny',       '0.50';
     requires 'Test2::Bundle::More', '1.302219';
-    requires 'Unicode::GCString',   '2013.10';    # conflicts later than 2013.10 
+#    requires 'Unicode::GCString',   '2013.10';    # conflicts later than 2013.10 
     requires 'Capture::Tiny',       '0.50';
 };
