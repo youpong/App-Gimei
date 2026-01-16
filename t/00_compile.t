@@ -1,4 +1,4 @@
-use v5.38;
+use v5.40;
 use Test2::Bundle::More;
 
 # test for loading the module

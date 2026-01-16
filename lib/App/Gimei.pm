@@ -1,4 +1,4 @@
-use v5.38;
+use v5.40;
 
 package App::Gimei;
 
@@ -96,7 +96,10 @@ You can also look for information at:
 
 =head1 LICENSE
 
-MIT License
+Copyright (c) 2022-2026 Yusaku Nakajima.
+
+This library is free software; you can redistribute it and/or modify
+it under the terms of the MIT License.
 
 =head1 AUTHOR
 
