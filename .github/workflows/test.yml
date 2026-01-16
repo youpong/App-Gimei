@@ -19,6 +19,9 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+      - name: Cleanup local
+        run: rm -rf local
+        if: runner.os == 'Windows'    
       - run: cpanm -n --with-configure --installdeps .
       - run: |
           perl Build.PL
