@@ -28,7 +28,8 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
-      - run: cpanm -n --installdeps .
+      - name: Install Perl Module Dependencies
+        run: carton install --deployment
       - run: |
           perl Build.PL
           ./Build build
