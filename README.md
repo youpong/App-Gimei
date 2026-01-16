@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/youpong/App-Gimei/workflows/test/badge.svg)](https://github.com/youpong/App-Gimei/actions) [![MetaCPAN Release](https://badge.fury.io/pl/App-Gimei.svg)](https://metacpan.org/release/App-Gimei)
+[![Actions Status](https://github.com/youpong/App-Gimei/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/youpong/App-Gimei/actions?workflow=test) [![MetaCPAN Release](https://badge.fury.io/pl/App-Gimei.svg)](https://metacpan.org/release/App-Gimei)
 # NAME
 
 App::Gimei - A CLI app for Data::Gimei, a module generating fake
@@ -78,7 +78,10 @@ You can also look for information at:
 
 # LICENSE
 
-MIT License
+Copyright (c) 2022-2026 Yusaku Nakajima.
+
+This library is free software; you can redistribute it and/or modify
+it under the terms of the MIT License.
 
 # AUTHOR
 
