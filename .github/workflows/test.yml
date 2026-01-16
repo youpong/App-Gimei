@@ -16,10 +16,8 @@ jobs:
         perl: [ "5.42", "5.40" ]
         distribution: [ strawberry, default ]
         exclude:
-          - os: macos-latest
+          - os: [ macos-latest, ubuntu-latest ]
             distribution: strawberry
-          - os: ubuntu-latest
-            distribution: strawberry            
 
     steps:
       - uses: actions/checkout@v6
