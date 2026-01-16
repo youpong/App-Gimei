@@ -3,7 +3,7 @@ requires 'perl', 'v5.40.0';
 requires 'Class::Tiny',  '1.008';
 requires 'Data::Gimei',  'v0.4.3';
 requires 'Getopt::Long', '2.58';
-requires 'Pod::Find',    '1.67';
+requires 'Pod::Find',    '1.65';
 requires 'Pod::Usage',   '2.05';
 requires 'Pod::Text',    'v6.0.2';
 
