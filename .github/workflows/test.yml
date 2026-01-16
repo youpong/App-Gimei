@@ -31,6 +31,6 @@ jobs:
       - name: Install Perl Module Dependencies
         run: carton install --deployment
       - run: |
-          perl Build.PL
-          ./Build build
-          ./Build test
+          carton exec perl Build.PL
+          carton exec ./Build build
+          carton exec ./Build test
