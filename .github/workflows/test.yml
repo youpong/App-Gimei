@@ -23,7 +23,7 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
-          distribution: ${{ runner.os == 'Windows' && 'strawberry' || '' }}
+          distribution: ${{ matrix.distribution }}
       - run: cpanm -n --with-configure --installdeps .
       - run: |
           perl Build.PL
