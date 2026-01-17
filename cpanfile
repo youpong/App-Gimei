@@ -12,11 +12,17 @@ on configure => sub {
 };
 
 on develop => sub {
-    requires 'CPAN::Uploader',    '== 0.103018';
-    requires 'Minilla',           '== v3.1.29';
-    requires 'Perl::Tidy',        '== 20260109';
-    requires 'Software::License', '== 0.104007';
-    requires 'Version::Next',     '== 1.000';
+    requires 'Spellunker',                 '== v0.4.0';
+    requires 'CPAN::Uploader',             '== 0.103018';
+    requires 'Minilla',                    '== v3.1.29';
+    requires 'Perl::Tidy',                 '== 20260109';
+    requires 'Software::License',          '== 0.104007';
+    requires 'Test::CPAN::Meta',           '== 0.25';
+    requires 'Test::MinimumVersion::Fast', '== 0.04';
+    requires 'Test::PAUSE::Permissions',   '== 0.07';
+    requires 'Test::Pod',                  '== 1.52';
+    requires 'Test::Spellunker',           '== v0.4.0';
+    requires 'Version::Next',              '== 1.000';
 };
 
 on 'test' => sub {

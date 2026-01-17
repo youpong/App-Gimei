@@ -1,6 +1,7 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - Add module dependencies
 
 v0.2.10 2026-01-17T07:23:08Z
     - Support Strawberry Perl for Windows
