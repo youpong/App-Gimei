@@ -1,4 +1,4 @@
-name: Test
+name: Test with Carmel
 
 on:
   push:
@@ -28,9 +28,11 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
+      - name: Install Perl Module Manager
+        run: cpanm Carmel@v0.1.56
       - name: Install Perl Module Dependencies
-        run: carton install --deployment
+        run: carmel install
       - run: |
-          carton exec perl Build.PL
-          carton exec ./Build build
-          carton exec ./Build test
+          carmel exec perl Build.PL
+          carmel exec perl Build build
+          carmel exec perl Build test
