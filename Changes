@@ -1,6 +1,8 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+
+v0.2.11 2026-01-17T07:59:58Z
     - Add module dependencies
 
 v0.2.10 2026-01-17T07:23:08Z
