@@ -29,7 +29,7 @@ jobs:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
       - name: Install Perl Module Manager
-        run: cpm install Carmel@v0.1.56  # x:cpanm
+        run: cpm install -g Carmel@v0.1.56  # x:cpanm
       - name: Install Perl Module Dependencies
         run: carmel install
       - run: |
