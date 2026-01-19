@@ -5,15 +5,15 @@ manager.
 
 ## How to Setup Development Environment
 ```bash
-$ cpanm Carmel@v0.1.56
-$ carmel install
+$ cpanm Caton@v1.0.35
+$ carton install --deployment
 ```
 
 ## How to Test
 ```bash
-$ carmel exec perl Build.PL
-$ carmel exec perl Build build
-$ carmel exec perl Build test
+$ carton exec perl Build.PL
+$ carton exec perl Build build
+$ carton exec perl Build test
 ```
 
 ## How to Format
@@ -23,5 +23,7 @@ $ author/format.sh
 
 ## How to release to CPAN
 ```bash
-$ carmel exec minil release
+$ carton exec minil test
+$ carton exec minil release --dry-run
+$ carton exec minil release
 ```
