@@ -30,6 +30,7 @@ jobs:
           distribution: ${{ matrix.distribution }}
       - name: Set OPENSSL_PREFIX for Windows
         if: runner.os == 'Windows'
+        shell: bash
         run: |
           export OPENSSL_PREFIX="/c/Program Files/OpenSSL"
       - name: Install Perl Module Manager
