@@ -17,6 +17,10 @@ jobs:
         include:
           - os: windows-latest
             distribution: strawberry
+          - os: macos-latest
+            distribution: default
+          - os: ubuntu-latest
+            distribution: default
 
     steps:
       - uses: actions/checkout@v6
