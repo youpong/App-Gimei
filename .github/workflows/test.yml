@@ -33,7 +33,6 @@ jobs:
 
       - name: Install Perl Module Dependencies for Windows
         if: runner.os == 'Windows'
-        shell: bash
         run: |
           carmel install
         env: 
