@@ -28,6 +28,10 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
+      - name: Set OPENSSL_PREFIX for Windows
+        if: runner.os == 'Windows'
+        run: |
+          export OPENSSL_PREFIX="/c/Program Files/OpenSSL"
       - name: Install Perl Module Manager
         run: cpm install -g Carmel@v0.1.56  # x:cpanm
       - name: Install Perl Module Dependencies
