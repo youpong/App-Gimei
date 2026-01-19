@@ -35,8 +35,10 @@ jobs:
         if: runner.os == 'Windows'
         shell: bash
         run: |
-          export OPENSSL_PREFIX="/c/Program Files/OpenSSL"
           carmel install
+        env: 
+          OPENSSL_DIR: C:\Progra~1\OpenSSL
+
       - name: Install Perl Module Dependencies
         if: runner.os != 'Windows'
         run: carmel install
