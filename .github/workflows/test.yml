@@ -31,6 +31,10 @@ jobs:
           distribution: ${{ matrix.distribution }}
       - name: Install Perl Module Manager
         run: cpm install -g Carmel@v0.1.56  # x:cpanm
+      - name: cc --version
+        if: runner.os == 'Windows'
+        run: |
+            cc -V:cc -V:ccversion -V:make
 
       - name: Install Perl Module Dependencies
         run: |
