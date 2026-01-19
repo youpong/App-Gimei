@@ -23,5 +23,7 @@ $ author/format.sh
 
 ## How to release to CPAN
 ```bash
+$ carmel exec minil test
+$ carmel exec minil release --dry-run
 $ carmel exec minil release
 ```
