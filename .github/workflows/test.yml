@@ -16,7 +16,7 @@ jobs:
         perl: [ "5.42", "5.40" ]
         include:
           - os: windows-latest
-            distribution: strawberry  # Use Strawberry Perl on Windows
+            distribution: strawberry
 
     steps:
       - uses: actions/checkout@v6
