@@ -14,12 +14,9 @@ jobs:
       matrix:
         os: [ windows-latest, macos-latest, ubuntu-latest ]
         perl: [ "5.42", "5.40" ]
-        distribution: [ strawberry, default ]
-        exclude:
-          - os: macos-latest
-            distribution: strawberry
-          - os: ubuntu-latest
-            distribution: strawberry
+        include:
+          - os: windows-latest
+            distribution: strawberry  # Use Strawberry Perl on Windows
 
     steps:
       - uses: actions/checkout@v6
@@ -31,18 +28,9 @@ jobs:
       - name: Install Perl Module Manager
         run: cpm install -g Carmel@v0.1.56  # x:cpanm
 
-      - name: Install Perl Module Dependencies for Windows
-        if: runner.os == 'Windows'
+      - name: Install Perl Module Dependencies
         run: |
           carmel install
-        env:
-          OPENSSL_PREFIX: C:/Progra~1/OpenSSL
-          LDFLAGS: -LC:/Progra~1/OpenSSL/lib
-          CPPFLAGS: -IC:/Progra~1/OpenSSL/include
-
-      - name: Install Perl Module Dependencies
-        if: runner.os != 'Windows'
-        run: carmel install
 
       - run: |
           carmel exec perl Build.PL
