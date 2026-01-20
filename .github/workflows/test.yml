@@ -43,8 +43,9 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $env:OPENSSL_PREFIX = "C:\Program Files\OpenSSL-Win64"
           carmel install
+        env:
+          OPENSSL_PREFIX: C:\Program Files\OpenSSL-Win64
 
       - name: Install Perl Module Dependencies
         if: runner.os != 'Windows'
