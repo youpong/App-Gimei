@@ -39,17 +39,17 @@ jobs:
       - name: Install Perl Module Manager
         run: cpm install -g Carmel@v0.1.56  # x:cpanm
 
-      - name: Install Perl Module Dependencies
+      - name: Install Perl Module Dependencies for Windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $env:OPENSSL_PREFIX = "C:\Program Files\OpenSSL"
-          $env:OPENSSL_DIR = "C:\Program Files\OpenSSL"
-          $env:CPATH = "C:\Program Files\OpenSSL\include"
-          $env:LIBRARY_PATH = "C:\Program Files\OpenSSL\lib"
+          $env:OPENSSL_PREFIX = "C:\Program Files\OpenSSL-Win64"
           carmel install
-        env:
-          PERL_MM_USE_DEFAULT: 1
+
+      - name: Install Perl Module Dependencies
+        if: runner.os != 'Windows'
+        run: |
+          carmel install
 
       - run: |
           carmel exec perl Build.PL
