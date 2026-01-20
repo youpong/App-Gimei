@@ -14,13 +14,6 @@ jobs:
       matrix:
         os: [ windows-latest, macos-latest, ubuntu-latest ]
         perl: [ "5.42", "5.40" ]
-        include:
-          - os: windows-latest
-            distribution: strawberry
-          - os: macos-latest
-            distribution: default
-          - os: ubuntu-latest
-            distribution: default
 
     steps:
       - uses: actions/checkout@v6
@@ -28,13 +21,11 @@ jobs:
         uses: shogo82148/actions-setup-perl@main
         with:
           perl-version: ${{ matrix.perl }}
-          distribution: ${{ matrix.distribution }}
       - name: cc --version
         if: runner.os == 'Windows'
         run: |
           perl -V:cc -V:ccversion -V:make
           gcc --version
-#       cc -V:cc -V:ccversion -V:make
 
       - name: Install Perl Module Manager
         run: cpm install -g Carmel@v0.1.56  # x:cpanm
