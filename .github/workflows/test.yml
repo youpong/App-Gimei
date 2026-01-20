@@ -34,7 +34,9 @@ jobs:
       - name: cc --version
         if: runner.os == 'Windows'
         run: |
-            cc -V:cc -V:ccversion -V:make
+          perl -V:cc -V:ccversion -V:make
+          gcc --version
+#       cc -V:cc -V:ccversion -V:make
 
       - name: Install Perl Module Dependencies
         run: |
