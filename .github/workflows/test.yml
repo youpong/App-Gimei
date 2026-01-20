@@ -29,8 +29,6 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
-      - name: Install Perl Module Manager
-        run: cpm install -g Carmel@v0.1.56  # x:cpanm
       - name: cc --version
         if: runner.os == 'Windows'
         run: |
@@ -38,9 +36,20 @@ jobs:
           gcc --version
 #       cc -V:cc -V:ccversion -V:make
 
+      - name: Install Perl Module Manager
+        run: cpm install -g Carmel@v0.1.56  # x:cpanm
+
       - name: Install Perl Module Dependencies
+        if: runner.os == 'Windows'
+        shell: pwsh
         run: |
+          $env:OPENSSL_PREFIX = "C:\Program Files\OpenSSL"
+          $env:OPENSSL_DIR = "C:\Program Files\OpenSSL"
+          $env:CPATH = "C:\Program Files\OpenSSL\include"
+          $env:LIBRARY_PATH = "C:\Program Files\OpenSSL\lib"
           carmel install
+        env:
+          PERL_MM_USE_DEFAULT: 1
 
       - run: |
           carmel exec perl Build.PL
