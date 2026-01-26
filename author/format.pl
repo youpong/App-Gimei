@@ -14,7 +14,7 @@ class Formatter {
     field $root_dir : param = undef;
 
     ADJUST {
-        $root_dir = abs_path(File::Spec->catdir($FindBin::Bin, '..'));
+        $root_dir = abs_path( File::Spec->catdir( $FindBin::Bin, '..' ) );
     }
 
     method run() {
@@ -36,7 +36,7 @@ class Formatter {
             destination => $file,
             perltidyrc  => $perltidyrc,
         );
-        if ( $error ) {
+        if ($error) {
             die "perltidy failed on $file\n";
         }
     }
