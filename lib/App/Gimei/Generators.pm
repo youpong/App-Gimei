@@ -8,14 +8,14 @@ class App::Gimei::Generators {
 
     field $body : param = [];
 
-    method push ($generator) {
-        CORE::push @{$body}, $generator;
+    method add_generator ($generator) {
+        push @{$body}, $generator;
     }
 
     method execute () {
         my ( @words, %cache );
         foreach my $g ( @{$body} ) {
-            CORE::push( @words, $g->execute( \%cache ) );
+            push( @words, $g->execute( \%cache ) );
         }
         return @words;
     }

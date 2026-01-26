@@ -10,7 +10,7 @@ use Test2::Bundle::More;
     my $generators = App::Gimei::Generators->new();
 
     my $g = App::Gimei::Generator->new( word_class => "Data::Gimei::Name" );
-    $generators->push($g);
+    $generators->add_generator($g);
 
     my @list = $generators->to_list();
     is( scalar @list, 1, "to_list returns one generator" );
@@ -21,7 +21,7 @@ use Test2::Bundle::More;
     my $generators = App::Gimei::Generators->new();
 
     my $g = App::Gimei::Generator->new( word_class => "Data::Gimei::Name" );
-    $generators->push($g);
+    $generators->add_generator($g);
 
     $generators->execute();
 }

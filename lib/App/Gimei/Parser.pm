@@ -13,7 +13,7 @@ class App::Gimei::Parser {
         my $generators = App::Gimei::Generators->new();
 
         foreach my $arg ( @{$args} ) {
-            $generators->push( $self->parse_arg($arg) );
+            $generators->add_generator( $self->parse_arg($arg) );
         }
 
         return $generators;
