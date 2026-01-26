@@ -14,13 +14,13 @@ class App::Gimei::Runner {
     use App::Gimei::Parser;
 
     #
-    # global vars
+    # instance fields
     #
 
     field $conf : param = { POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) };
 
     #
-    # methods
+    # instance methods
     #
 
     method parse_option ( $args_ref, $opts_ref ) {
