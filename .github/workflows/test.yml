@@ -30,11 +30,11 @@ jobs:
           ACTIONS_STEP_DEBUG: false
 
       - name: Install Perl Module Manager
-        run: cpanm Carmel@v0.1.56
+        run: cpanm Carton@v1.0.35
 
       - name: Install Perl Module Dependencies
         run: |
-          carmel install
+          carton install --deployment --without development 
 
       - name: Run Tests
         run: |
