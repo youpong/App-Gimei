@@ -24,6 +24,8 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ runner.os == 'Windows' && 'strawberry' || 'default' }}
+        env:
+          ACTIONS_STEP_DEBUG: false
 
       - name: Install Perl Module Manager
         run: cpanm Carmel@v0.1.56
