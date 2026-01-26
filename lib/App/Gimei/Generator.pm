@@ -11,9 +11,6 @@ class App::Gimei::Generator {
     field $word_subtype : param = undef;
     field $rendering    : param : reader = 'kanji';
 
-    ADJUST {
-    }
-
     method execute ($cache) {
         my ($word);
 
