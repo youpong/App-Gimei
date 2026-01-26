@@ -31,7 +31,6 @@ jobs:
       - name: Install Perl Module Dependencies
         run: |
           carmel install
-          carmel rollout
 
       - name: Run Tests
         run: |
