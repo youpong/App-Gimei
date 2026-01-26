@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: Test on ${{ matrix.os }} with Perl ${{ matrix.perl }}
+    name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}
     strategy:
