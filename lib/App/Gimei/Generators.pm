@@ -6,9 +6,9 @@ class App::Gimei::Generators {
 
     use Data::Gimei;
 
-    field $body :param = [];
+    field $body : param = [];
 
-    method push ( $generator ) {
+    method push ($generator) {
         CORE::push @{$body}, $generator;
     }
 

@@ -5,7 +5,7 @@ use Test2::Bundle::More;
 
 # test
 {
-    my @args = ('name:kanji');
+    my @args       = ('name:kanji');
     my $parser     = App::Gimei::Parser->new( args => \@args );
     my $generators = $parser->parse();
 }

@@ -17,7 +17,7 @@ class App::Gimei::Runner {
     # global vars
     #
 
-    field $conf :param = { POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' )};
+    field $conf : param = { POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) };
 
     #
     # methods
@@ -30,16 +30,17 @@ class App::Gimei::Runner {
         my $p = Getopt::Long::Parser->new( config => ["no_ignore_case"], );
 
         local $SIG{__WARN__} = sub { die "Error: $_[0]" };
-        my $ok = $p->getoptionsfromarray( $args_ref, $opts_ref, "help|h", "version|v", "n=i",
+        my $ok =
+          $p->getoptionsfromarray( $args_ref, $opts_ref, "help|h", "version|v", "n=i",
             "sep=s", );
 
         if ( $opts_ref->{n} < 1 ) {
             die
-            "Error: value $opts_ref->{n} invalid for option n (must be positive number)\n";
+"Error: value $opts_ref->{n} invalid for option n (must be positive number)\n";
         }
     }
 
-    method execute ( @args ) {
+    method execute (@args) {
         my %opts;
         $self->parse_option( \@args, \%opts );
 
@@ -75,7 +76,9 @@ class App::Gimei::Runner {
 
     sub semantic_analysis ($generators) {
         foreach my $gen ( $generators->to_list() ) {
-            if ( $gen->word_class eq 'Data::Gimei::Address' && $gen->rendering eq 'romaji' ) {
+            if (   $gen->word_class eq 'Data::Gimei::Address'
+                && $gen->rendering eq 'romaji' )
+            {
                 die "Error: rendering romaji is not supported for address\n";
             }
         }

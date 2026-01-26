@@ -6,15 +6,15 @@ class App::Gimei::Generator {
 
     use Data::Gimei;
 
-    field $word_class   :param :reader;
-    field $gender       :param :reader = undef;
-    field $word_subtype :param         = undef;
-    field $rendering    :param :reader = 'kanji';
+    field $word_class   : param : reader;
+    field $gender       : param : reader = undef;
+    field $word_subtype : param = undef;
+    field $rendering    : param : reader = 'kanji';
 
     ADJUST {
     }
 
-    method execute ( $cache ) {
+    method execute ($cache) {
         my ($word);
 
         my $key = $word_class . ( $gender // '' );
@@ -24,15 +24,15 @@ class App::Gimei::Generator {
             $cache->{$key} = $word;
         }
 
-        if ( $word_subtype ) {
+        if ($word_subtype) {
             if ( $word_subtype eq 'gender' ) {
                 return $word->gender;
             }
-            my $call = $word->can( $word_subtype );
+            my $call = $word->can($word_subtype);
             $word = $word->$call();
         }
 
-        my $call = $word->can( $rendering );
+        my $call = $word->can($rendering);
         $word = $word->$call();
 
         return $word;

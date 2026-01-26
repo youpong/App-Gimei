@@ -7,12 +7,12 @@ class App::Gimei::Parser {
     use App::Gimei::Generator;
     use App::Gimei::Generators;
 
-    field $args :param;
+    field $args : param;
 
     method parse () {
         my $generators = App::Gimei::Generators->new();
 
-        foreach my $arg ( @{ $args } ) {
+        foreach my $arg ( @{$args} ) {
             $generators->push( $self->parse_arg($arg) );
         }
 
@@ -31,7 +31,7 @@ class App::Gimei::Parser {
     #
     # RENDERING:    'kanji'      | 'hiragana' | 'katakana' | 'romaji'
     # (DO NOT support romaji rendering for type address)
-    method parse_arg ( $arg ) {
+    method parse_arg ($arg) {
         my ( $gen, @tokens, %params );
 
         @tokens = split( /[-:]/, $arg );
@@ -43,7 +43,7 @@ class App::Gimei::Parser {
                 $params{gender} = $token;
             }
             $params{word_subtype} = $self->subtype_name( \@tokens );
-        } elsif ( $token eq 'address' ) {                                      # TYPE_ADDRESS
+        } elsif ( $token eq 'address' ) {    # TYPE_ADDRESS
             $params{word_class}   = "Data::Gimei::Address";
             $params{word_subtype} = $self->subtype_address( \@tokens );
         } else {
@@ -63,7 +63,7 @@ class App::Gimei::Parser {
         return App::Gimei::Generator->new(%params);
     }
 
-    method subtype_name ( $tokens_ref ) {
+    method subtype_name ($tokens_ref) {
         my $word_subtype;
 
         my %map = (
@@ -83,7 +83,7 @@ class App::Gimei::Parser {
         return $word_subtype;
     }
 
-    method subtype_address ( $tokens_ref ) {
+    method subtype_address ($tokens_ref) {
         my ($word_subtype);
 
         my $token = @$tokens_ref[0] // '';
@@ -95,7 +95,7 @@ class App::Gimei::Parser {
         return $word_subtype;
     }
 
-    method rendering ( $tokens_ref ) {
+    method rendering ($tokens_ref) {
         my $rendering = 'kanji';
 
         my $token = @$tokens_ref[0] // '';
