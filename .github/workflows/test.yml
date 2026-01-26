@@ -1,4 +1,4 @@
-name: Run test on ${{ matrix.os }} (Perl ${{ matrix.perl }})
+name: CI
 
 on:
   push:
@@ -9,6 +9,8 @@ on:
 
 jobs:
   test:
+    name: Test on ${{ matrix.os }} with Perl ${{ matrix.perl }}
+
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
