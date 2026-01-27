@@ -23,5 +23,7 @@ $ carton exec perl author/format.pl
 
 ## How to release to CPAN
 ```bash
+$ carton exec minil test
+$ carton exec -- minil release --dry-run
 $ carton exec minil release
 ```
