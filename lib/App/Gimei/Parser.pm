@@ -22,13 +22,11 @@ class App::Gimei::Parser {
     # BNF-like notation
     #
     # ARG:          [WORD_TYPE] [':' RENDERING]
-    #
     # WORD_TYPE:　   TYPE_NAME [':' SUBTYPE_NAME] | TYPE_ADDRESS [':' SUBTYPE_ADDRESS ]
     # TYPE_NAME:       'name'       | 'male'     | 'female'
     # SUBTYPE_NAME:    'family'     | 'given'
     # TYPE_ADDRESS:    'address'
     # SUBTYPE_ADDRESS: 'prefecture' | 'city'     | 'town'
-    #
     # RENDERING:       'kanji'      | 'hiragana' | 'katakana' | 'romaji'
     # (DO NOT support romaji rendering for type address)
     method parse_arg ($arg) {
