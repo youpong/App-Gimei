@@ -23,6 +23,9 @@ on develop => sub {
     requires 'Test::Pod',                  '== 1.52';
     requires 'Test::Spellunker',           '== v0.4.0';
     requires 'Version::Next',              '== 1.000';
+
+    requires 'Reply',               '== 0.42';
+    requires 'Term::ReadLine::Gnu', '== 1.47';
 };
 
 on 'test' => sub {
