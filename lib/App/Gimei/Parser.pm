@@ -29,7 +29,7 @@ class App::Gimei::Parser {
     # TYPE_ADDRESS:    'address'
     # SUBTYPE_ADDRESS: 'prefecture' | 'city'     | 'town'
     #
-    # RENDERING:    'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+    # RENDERING:       'kanji'      | 'hiragana' | 'katakana' | 'romaji'
     # (DO NOT support romaji rendering for type address)
     method parse_arg ($arg) {
         my ( $gen, @tokens, %params );

@@ -6,21 +6,28 @@ class App::Gimei::Generator {
 
     use Data::Gimei;
 
-    field $word_class   : param : reader;
-    field $gender       : param : reader = undef;
-    field $word_subtype : param = undef;
-    field $rendering    : param : reader = 'kanji';
+    field $word_class   : param : reader;    # Name or Address
+    field $word_subtype : param = undef;     # 'gender', 'family', 'given',
+                                             # 'prefecture', 'city', 'town' or undef
+    field $rendering    : param : reader =
+      'kanji';                               # 'kanji', 'hiragana', 'katakana' or 'romaji'
+    field $gender : param : reader = undef;  # 'name', 'male', 'female' or undef
 
+    # Returns generated string if cache missed
     method execute ($cache) {
         my ($word);
 
-        my $key = $word_class . ( $gender // '' );
+        # Fetch from cache
+        my $key = $word_class . ( $gender // '' );    # cache key
         $word = $cache->{$key};
+
+        # Generate if chache missed
         if ( !defined $word ) {
             $word = $word_class->new( gender => $gender );
-            $cache->{$key} = $word;
+            $cache->{$key} = $word;                                   # cache it
         }
 
+        # Extract subtype
         if ($word_subtype) {
             if ( $word_subtype eq 'gender' ) {
                 return $word->gender;
@@ -29,6 +36,7 @@ class App::Gimei::Generator {
             $word = $word->$call();
         }
 
+        # Apply rendering
         my $call = $word->can($rendering);
         $word = $word->$call();
 
