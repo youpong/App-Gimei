@@ -1,6 +1,8 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - change App::Gimei::Parser::parse method from instance method to class method
+    - prefix private method name with _
 
 v0.3.0 2026-01-27T07:47:03Z
     - Switch module manager back to Carton

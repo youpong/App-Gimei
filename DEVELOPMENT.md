@@ -3,8 +3,8 @@
 We use `Minilla` as our authoring tool and `Carton` as our module dependency
 manager.
 
-private な instance method については、メソッド名の先頭を _ ではじめる。
-たとえば、_parse() など。
+For private instance methods, prefix the method name with an underscore.
+For example, _parse().
 
 ## How to Setup Development Environment
 ```bash
@@ -19,6 +19,11 @@ $ carton exec perl Build build
 $ carton exec perl Build test
 ```
 
+## How to REPL(Read-Eval-Print-Loop)
+```bash
+$ carton exec -- reply -Iblib/lib
+```
+
 ## How to Format
 ```bash
 $ carton exec perl author/format.pl
@@ -29,4 +34,10 @@ $ carton exec perl author/format.pl
 $ carton exec minil test
 $ carton exec -- minil release --dry-run
 $ carton exec minil release
+```
+
+## Docker
+```bash
+$ docker build -t gimei .
+$ docer run --rm -it -v$PWD:/gimei gimei bash -l
 ```
