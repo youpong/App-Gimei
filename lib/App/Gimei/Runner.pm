@@ -17,7 +17,7 @@ class App::Gimei::Runner {
     # instance variables
     #
 
-    field $conf : param = { POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) };
+    field $conf = { POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) };
 
     #
     # instance methods
