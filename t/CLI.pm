@@ -17,7 +17,7 @@ class t::CLI {
     field $error_message : param : reader;
 
     #
-    # instance methods
+    # class methods
     #
 
     sub run ( $class, @args ) {
