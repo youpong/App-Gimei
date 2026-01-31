@@ -1,6 +1,6 @@
 requires 'perl', 'v5.40.0';
 
-requires 'Data::Gimei',  '== v0.4.5';
+requires 'Data::Gimei',  '== v0.5.0';
 requires 'Getopt::Long', '== 2.58';
 requires 'Pod::Find',    '== 1.67';
 requires 'Pod::Usage',   '== 2.05';

@@ -151,10 +151,10 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Data-Gimei-v0.4.5
-    pathname: Y/YO/YOUPONG/Data-Gimei-v0.4.5.tar.gz
+  Data-Gimei-v0.5.0
+    pathname: Y/YO/YOUPONG/Data-Gimei-v0.5.0.tar.gz
     provides:
-      Data::Gimei v0.4.5
+      Data::Gimei v0.5.0
       Data::Gimei::Address undef
       Data::Gimei::Name undef
       Data::Gimei::Random undef
@@ -360,14 +360,13 @@ DISTRIBUTIONS
       File::HomeDir::Windows 1.006
     requirements:
       Carp 0
-      Cwd 3
+      Cwd 3.12
       ExtUtils::MakeMaker 0
       File::Basename 0
       File::Path 2.01
-      File::Spec 3
+      File::Spec 3.12
       File::Temp 0.19
       File::Which 0.05
-      Mac::SystemDirectory 0.04
       POSIX 0
       perl 5.008003
   File-Listing-6.16
@@ -663,17 +662,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.006
-  Mac-SystemDirectory-0.14
-    pathname: E/ET/ETHER/Mac-SystemDirectory-0.14.tar.gz
-    provides:
-      Mac::SystemDirectory 0.14
-    requirements:
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      XSLoader 0
-      perl 5.006
-      strict 0
-      warnings 0
   Minilla-v3.1.29
     pathname: S/SY/SYOHEX/Minilla-v3.1.29.tar.gz
     provides:
@@ -1038,24 +1026,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  Parallel-ForkManager-2.04
-    pathname: Y/YA/YANICK/Parallel-ForkManager-2.04.tar.gz
-    provides:
-      Parallel::ForkManager 2.04
-      Parallel::ForkManager::Child 2.04
-    requirements:
-      Carp 0
-      ExtUtils::MakeMaker 0
-      File::Path 0
-      File::Spec 0
-      File::Temp 0
-      Moo 1.001000
-      Moo::Role 0
-      POSIX 0
-      Storable 0
-      perl 5.006
-      strict 0
-      warnings 0
   Params-Util-1.102
     pathname: R/RE/REHSACK/Params-Util-1.102.tar.gz
     provides:
