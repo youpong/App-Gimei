@@ -41,3 +41,8 @@ $ carton exec minil release
 $ docker build -t gimei .
 $ docker run --rm -it -v$PWD:/gimei gimei bash -l
 ```
+
+## cpanfile.snapshot
+
+Generate cpanfile.snapshot on macOS.
+Generating it on Ubuntu will result in missing libraries required on macOS.
