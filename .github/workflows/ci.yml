@@ -23,7 +23,7 @@ jobs:
 
       - name: Install library for Linux
         if: runner.os == 'Linux'
-        run: apt-get install -y --no-install-recommends libreadline-dev
+        run: sudo apt-get install -y --no-install-recommends libreadline-dev
 
       - name: Setup Perl
         uses: shogo82148/actions-setup-perl@v1
