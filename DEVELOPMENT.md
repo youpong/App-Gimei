@@ -3,6 +3,9 @@
 We use `Minilla` as our authoring tool and `Carton` as our module dependency
 manager.
 
+private な instance method については、メソッド名の先頭を _ ではじめる。
+たとえば、_parse() など。
+
 ## How to Setup Development Environment
 ```bash
 $ cpanm Carton@v1.0.35
