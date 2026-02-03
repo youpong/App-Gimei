@@ -31,5 +31,6 @@ on develop => sub {
 on 'test' => sub {
     requires 'Capture::Tiny', '== 0.50';
     requires 'Test2::V1',     '== 1.302219';
-    requires 'Capture::Tiny', '== 0.50';
+    requires 'App::Yath',     '== 1.000161';
+    requires 'UUID',          '== 0.37';
 };

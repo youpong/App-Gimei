@@ -12,11 +12,15 @@ $ cpanm Carton@v1.0.35
 $ carton install --deployment
 ```
 
-## How to Test
+## How to Build
 ```bash
 $ carton exec perl Build.PL
 $ carton exec perl Build build
-$ carton exec perl Build test
+```
+
+## How to Test
+```bash
+$ carton exec yath
 ```
 
 ## How to REPL(Read-Eval-Print-Loop)

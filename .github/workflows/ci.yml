@@ -40,10 +40,10 @@ jobs:
         run: |
           carton install --deployment --without development 
 
-      - name: Run Tests
+      - name: Build
         run: |
-          perl ./Build.PL
-          perl ./Build build
-          perl ./Build test
-        env:
-          PERL5LIB: local/lib/perl5
+          carton exec perl ./Build.PL
+          carton exec perl ./Build build
+      - name: Test
+        run: |
+          carton exec yath
