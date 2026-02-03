@@ -31,5 +31,4 @@ on develop => sub {
 on 'test' => sub {
     requires 'Capture::Tiny', '== 0.50';
     requires 'Test2::V1',     '== 1.302219';
-    requires 'Capture::Tiny', '== 0.50';
 };
