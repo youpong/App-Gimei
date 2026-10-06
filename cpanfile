@@ -1,4 +1,4 @@
-requires 'perl', 'v5.40.0';
+requires 'perl', 'v5.42.0';
 
 requires 'Data::Gimei',  '== v0.5.0';
 requires 'Getopt::Long', '== 2.58';

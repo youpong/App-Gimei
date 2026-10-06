@@ -1,4 +1,4 @@
-use v5.40;
+use v5.42;
 use feature 'class';
 no warnings 'experimental::class';
 
@@ -23,7 +23,7 @@ class App::Gimei::Parser {
     # BNF-like notation
     #
     # ARG:          [WORD_TYPE] [':' RENDERING]
-    # WORD_TYPE:　   TYPE_NAME [':' SUBTYPE_NAME] | TYPE_ADDRESS [':' SUBTYPE_ADDRESS ]
+    # WORD_TYPE:       TYPE_NAME [':' SUBTYPE_NAME] | TYPE_ADDRESS [':' SUBTYPE_ADDRESS ]
     # TYPE_NAME:       'name'       | 'male'     | 'female'
     # SUBTYPE_NAME:    'family'     | 'given'
     # TYPE_ADDRESS:    'address'

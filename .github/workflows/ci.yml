@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ windows-latest, macos-latest, ubuntu-latest ]
-        perl: [ "5.42", "5.40" ]
+        perl: [ "5.44", "5.42" ]
 
     steps:
       - uses: actions/checkout@v6

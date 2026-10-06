@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/youpong/App-Gimei/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/youpong/App-Gimei/actions?workflow=test) [![MetaCPAN Release](https://badge.fury.io/pl/App-Gimei.svg)](https://metacpan.org/release/App-Gimei)
+
 # NAME
 
 App::Gimei - A CLI app for Data::Gimei, a module generating fake
