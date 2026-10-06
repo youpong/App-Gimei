@@ -22,8 +22,9 @@ class App::Gimei::Parser {
 
     # BNF-like notation
     #
-    # ARG:          [WORD_TYPE] [':' RENDERING]
-    # WORD_TYPE:　   TYPE_NAME [':' SUBTYPE_NAME] | TYPE_ADDRESS [':' SUBTYPE_ADDRESS ]
+    # ARG:             [WORD_TYPE]   [':' RENDERING]
+    # WORD_TYPE:        TYPE_NAME    [':' SUBTYPE_NAME] 
+    #                 | TYPE_ADDRESS [':' SUBTYPE_ADDRESS]
     # TYPE_NAME:       'name'       | 'male'     | 'female'
     # SUBTYPE_NAME:    'family'     | 'given'
     # TYPE_ADDRESS:    'address'
