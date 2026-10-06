@@ -4,8 +4,6 @@ requires 'Data::Gimei',  '== v0.5.0';
 requires 'Getopt::Long', '== 2.58';
 requires 'Pod::Find',    '== 1.67';
 requires 'Pod::Usage',   '== 2.05';
-requires 'Pod::Text',    '== v6.0.2';    # Up to Perl 5.40, a newer version than
-                                         # the bundled one was required.
 
 on configure => sub {
     requires 'Module::Build::Tiny', '== 0.052';
