@@ -6,14 +6,14 @@ requires 'Pod::Find',    '== 1.67';
 requires 'Pod::Usage',   '== 2.05';
 
 on configure => sub {
-    requires 'Module::Build::Tiny', '== 0.052';
+    requires 'Module::Build::Tiny', '== 0.053';
 };
 
 on develop => sub {
     requires 'Spellunker',                 '== v0.4.0';
-    requires 'CPAN::Uploader',             '== 0.103018';
-    requires 'Minilla',                    '== v3.1.29';
-    requires 'Perl::Tidy',                 '== 20260109';
+    requires 'CPAN::Uploader',             '== 0.103019';
+    requires 'Minilla',                    '== v3.3.0';
+    requires 'Perl::Tidy',                 '== 20260826';
     requires 'Software::License',          '== 0.104007';
     requires 'Test::CPAN::Meta',           '== 0.25';
     requires 'Test::MinimumVersion::Fast', '== 0.04';
@@ -28,5 +28,5 @@ on develop => sub {
 
 on 'test' => sub {
     requires 'Capture::Tiny', '== 0.50';
-    requires 'Test2::V1',     '== 1.302219';
+    requires 'Test2::V1',     '== 1.302225';
 };
