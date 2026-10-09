@@ -1,9 +1,7 @@
 requires 'perl', 'v5.42.0';
 
-requires 'Data::Gimei',  '== v0.5.0';
-requires 'Getopt::Long', '== 2.58';
-requires 'Pod::Find',    '== 1.67';
-requires 'Pod::Usage',   '== 2.05';
+requires 'Data::Gimei', '== v0.5.0';
+requires 'Pod::Find',   '== 1.67';
 
 on configure => sub {
     requires 'Module::Build::Tiny', '== 0.053';
@@ -16,6 +14,7 @@ on develop => sub {
     requires 'Perl::Tidy',                 '== 20260826';
     requires 'Software::License',          '== 0.104007';
     requires 'Test::CPAN::Meta',           '== 0.25';
+    requires 'Module::CPANfile',           '== 1.1004';
     requires 'Test::MinimumVersion::Fast', '== 0.04';
     requires 'Test::PAUSE::Permissions',   '== 0.07';
     requires 'Test::Pod',                  '== 1.52';
