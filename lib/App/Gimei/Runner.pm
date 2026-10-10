@@ -23,7 +23,7 @@ class App::Gimei::Runner {
     # instance methods
     #
 
-    method _parse_option ( $args_ref, $opts_ref ) {
+    my method _parse_option ( $args_ref, $opts_ref ) {
         $opts_ref->{n}   = 1;
         $opts_ref->{sep} = ', ';
 
@@ -42,7 +42,7 @@ class App::Gimei::Runner {
 
     method execute (@args) {
         my %opts;
-        $self->_parse_option( \@args, \%opts );
+        $self->&_parse_option( \@args, \%opts );
 
         if ( $opts{version} ) {
             say "$App::Gimei::VERSION";
