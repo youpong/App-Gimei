@@ -8,62 +8,16 @@ class App::Gimei::Parser {
     use App::Gimei::Generators;
 
     #
-    # class methods
+    # instance variable
     #
 
-    sub parse ($args) {
-        my $generators = App::Gimei::Generators->new();
-        foreach my $arg ( @{$args} ) {
-            $generators->add_generator( _parse_arg($arg) );
-        }
+    field $args : param;
 
-        return $generators;
-    }
-
-    # BNF-like notation
     #
-    # ARG:             [WORD_TYPE]   [':' RENDERING]
-    # WORD_TYPE:        TYPE_NAME    [':' SUBTYPE_NAME]
-    #                 | TYPE_ADDRESS [':' SUBTYPE_ADDRESS]
-    # TYPE_NAME:       'name'       | 'male'     | 'female'
-    # SUBTYPE_NAME:    'family'     | 'given'
-    # TYPE_ADDRESS:    'address'
-    # SUBTYPE_ADDRESS: 'prefecture' | 'city'     | 'town'
-    # RENDERING:       'kanji'      | 'hiragana' | 'katakana' | 'romaji'
-    # (DO NOT support romaji rendering for type address)
-    sub _parse_arg ($arg) {
-        my ( $gen, @tokens, %params );
+    # private instance methods
+    #
 
-        @tokens = split( /[-:]/, $arg );
-
-        my $token = shift @tokens;
-        if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) {    # TYPE_NAME
-            $params{word_class} = "Data::Gimei::Name";
-            if ( $token ne 'name' ) {
-                $params{gender} = $token;
-            }
-            $params{word_subtype} = _subtype_name( \@tokens );
-        } elsif ( $token eq 'address' ) {    # TYPE_ADDRESS
-            $params{word_class}   = "Data::Gimei::Address";
-            $params{word_subtype} = _subtype_address( \@tokens );
-        } else {
-            die "Error: unknown word_type: $token\n";
-        }
-
-        $params{rendering} = _rendering( \@tokens );
-
-        if (@tokens) {
-            if ( defined $params{word_subtype} ) {
-                die "Error: unknown rendering: $tokens[0]\n";
-            } else {
-                die "Error: unknown subtype or rendering: $tokens[0]\n";
-            }
-        }
-
-        return App::Gimei::Generator->new(%params);
-    }
-
-    sub _subtype_name ($tokens_ref) {
+    my method _subtype_name ($tokens_ref) {
         my $word_subtype;
 
         my %map = (
@@ -83,7 +37,7 @@ class App::Gimei::Parser {
         return $word_subtype;
     }
 
-    sub _subtype_address ($tokens_ref) {
+    my method _subtype_address ($tokens_ref) {
         my ($word_subtype);
 
         my $token = @$tokens_ref[0] // '';
@@ -95,7 +49,7 @@ class App::Gimei::Parser {
         return $word_subtype;
     }
 
-    sub _rendering ($tokens_ref) {
+    my method _rendering ($tokens_ref) {
         my $rendering = 'kanji';
 
         my $token = @$tokens_ref[0] // '';
@@ -109,6 +63,62 @@ class App::Gimei::Parser {
         }
 
         return $rendering;
+    }
+
+    # BNF-like notation
+    #
+    # ARG:             [WORD_TYPE]   [':' RENDERING]
+    # WORD_TYPE:        TYPE_NAME    [':' SUBTYPE_NAME]
+    #                 | TYPE_ADDRESS [':' SUBTYPE_ADDRESS]
+    # TYPE_NAME:       'name'       | 'male'     | 'female'
+    # SUBTYPE_NAME:    'family'     | 'given'
+    # TYPE_ADDRESS:    'address'
+    # SUBTYPE_ADDRESS: 'prefecture' | 'city'     | 'town'
+    # RENDERING:       'kanji'      | 'hiragana' | 'katakana' | 'romaji'
+    # (DO NOT support romaji rendering for type address)
+    my method _parse_arg ($arg) {
+        my ( $gen, @tokens, %params );
+
+        @tokens = split( /[-:]/, $arg );
+
+        my $token = shift @tokens;
+        if ( $token eq 'name' || $token eq 'male' || $token eq 'female' ) {    # TYPE_NAME
+            $params{word_class} = "Data::Gimei::Name";
+            if ( $token ne 'name' ) {
+                $params{gender} = $token;
+            }
+            $params{word_subtype} = $self->&_subtype_name( \@tokens );
+        } elsif ( $token eq 'address' ) {    # TYPE_ADDRESS
+            $params{word_class}   = "Data::Gimei::Address";
+            $params{word_subtype} = $self->&_subtype_address( \@tokens );
+        } else {
+            die "Error: unknown word_type: $token\n";
+        }
+
+        $params{rendering} = $self->&_rendering( \@tokens );
+
+        if (@tokens) {
+            if ( defined $params{word_subtype} ) {
+                die "Error: unknown rendering: $tokens[0]\n";
+            } else {
+                die "Error: unknown subtype or rendering: $tokens[0]\n";
+            }
+        }
+
+        return App::Gimei::Generator->new(%params);
+    }
+
+    #
+    # public instance methods
+    #
+
+    method parse () {
+        my $generators = App::Gimei::Generators->new();
+        foreach my $arg ( @{$args} ) {
+            $generators->add_generator( $self->&_parse_arg($arg) );
+        }
+
+        return $generators;
     }
 }
 

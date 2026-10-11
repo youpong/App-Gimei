@@ -60,7 +60,7 @@ class App::Gimei::Runner {
 
         #        my $parser     = App::Gimei::Parser->new( args => \@args );
         #        my $generators = $parser->parse();
-        my $generators = App::Gimei::Parser::parse( \@args );
+        my $generators = App::Gimei::Parser->new( args => \@args )->parse();
 
         _semantic_analysis($generators);
 
