@@ -20,7 +20,7 @@ class App::Gimei::Runner {
     field $conf = { POD_FILE => pod_where( { -inc => 1 }, 'App::Gimei' ) };
 
     #
-    # instance methods
+    # private instance methods
     #
 
     my method _parse_option ( $args_ref, $opts_ref ) {
@@ -39,6 +39,10 @@ class App::Gimei::Runner {
 "Error: value $opts_ref->{n} invalid for option n (must be positive number)\n";
         }
     }
+
+    #
+    # public instance methods
+    #
 
     method execute (@args) {
         my %opts;
