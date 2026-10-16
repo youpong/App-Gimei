@@ -11,7 +11,7 @@ class App::Gimei::Parser {
     # instance variable
     #
 
-    field $args : param;
+    field $args :param :reader;
 
     #
     # private instance methods
@@ -76,7 +76,7 @@ class App::Gimei::Parser {
     # SUBTYPE_ADDRESS: 'prefecture' | 'city'     | 'town'
     # RENDERING:       'kanji'      | 'hiragana' | 'katakana' | 'romaji'
     # (DO NOT support romaji rendering for type address)
-    my method _parse_arg ($arg) {
+    method _parse_arg ($arg) {
         my ( $gen, @tokens, %params );
 
         @tokens = split( /[-:]/, $arg );
@@ -109,13 +109,15 @@ class App::Gimei::Parser {
     }
 
     #
-    # public instance methods
+    # public class methods
     #
 
-    method parse () {
+    sub parse ($aref) {
+        my $p = App::Gimei::Parser->new( args => $aref );
+
         my $generators = App::Gimei::Generators->new();
-        foreach my $arg ( @{$args} ) {
-            $generators->add_generator( $self->&_parse_arg($arg) );
+        foreach my $arg ( @{$p->args} ) {  # @{$aref} is the same as @{$p->args}
+            $generators->add_generator( $p->_parse_arg($arg) );
         }
 
         return $generators;
