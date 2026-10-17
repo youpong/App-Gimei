@@ -1,7 +1,7 @@
 use v5.42;
 
 use lib ".";
-use t::Util qw(run);
+use t::Util;
 
 my @tests = (
     {
@@ -20,4 +20,4 @@ my @tests = (
     },
 );
 
-run(@tests);
+t::Util->run(@tests);

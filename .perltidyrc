@@ -1,3 +1,4 @@
 --character-encoding=utf8
---maximum-line-length=90
+--maximum-line-length=96
 --cuddled-else
+--nowant-right-space='A'

@@ -1,11 +1,14 @@
 Revision history for Perl extension App-Gimei
 
 {{$NEXT}}
+    - Update formatting
 
 v0.3.2 2026-10-16T17:47:52Z
     - Bump perl 5.42
     - Remove non-ASCII characters from lib/App/Gimei/Parser.pm
     - Remove obsolete 'requires' directive for Pod::Text, as we now use its bundled version
+    - Update dependencies
+    - Introduce lexical methods
 
 v0.3.1 2026-01-31T17:52:53Z
     - change App::Gimei::Parser::parse method from instance method to class method

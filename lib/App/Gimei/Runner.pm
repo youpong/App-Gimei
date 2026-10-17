@@ -35,8 +35,17 @@ class App::Gimei::Runner {
             "sep=s", );
 
         if ( $opts_ref->{n} < 1 ) {
-            die
-"Error: value $opts_ref->{n} invalid for option n (must be positive number)\n";
+            die "Error: value $opts_ref->{n} invalid for option n (must be positive number)\n";
+        }
+    }
+
+    my method _semantic_analysis ($generators) {
+        foreach my $gen ( $generators->to_list() ) {
+            if (   $gen->word_class eq 'Data::Gimei::Address'
+                && $gen->rendering eq 'romaji' )
+            {
+                die "Error: rendering romaji is not supported for address\n";
+            }
         }
     }
 
@@ -62,29 +71,15 @@ class App::Gimei::Runner {
             push @args, 'name:kanji';
         }
 
-        my $generators = App::Gimei::Parser::parse(\@args);
+        my $generators = App::Gimei::Parser->parse( \@args );
 
-        _semantic_analysis($generators);
+        $self->&_semantic_analysis($generators);
 
         foreach ( 1 .. $opts{n} ) {
             say join $opts{sep}, $generators->execute();
         }
 
         return 0;
-    }
-
-    #
-    # class methods
-    #
-
-    sub _semantic_analysis ($generators) {
-        foreach my $gen ( $generators->to_list() ) {
-            if (   $gen->word_class eq 'Data::Gimei::Address'
-                && $gen->rendering eq 'romaji' )
-            {
-                die "Error: rendering romaji is not supported for address\n";
-            }
-        }
     }
 }
 
