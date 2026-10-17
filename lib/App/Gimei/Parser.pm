@@ -106,8 +106,8 @@ class App::Gimei::Parser {
     # public class methods
     #
 
-    sub parse ($aref) {
-        my $p = App::Gimei::Parser->new();
+    sub parse ($class, $aref) {
+        my $p = $class->new();
 
         my $generators = App::Gimei::Generators->new();
         foreach my $arg ( @{$aref} ) {
