@@ -10,17 +10,17 @@ class Formatter {
     use List::Util qw(any);
 
     #
-    # instance variables
+    # class variables
     #
 
-    field @target_patterns :reader = ( qr/.+\.pl$/, qr/.+\.pm$/, qr/.+\.t$/, qr/^cpanfile$/ );
-    field $root_dir        :reader = abs_path( File::Spec->catdir( $FindBin::Bin, '..' ) );
+    my @target_patterns = ( qr/.+\.pl$/, qr/.+\.pm$/, qr/.+\.t$/, qr/^cpanfile$/ );
+    my $root_dir        = abs_path( File::Spec->catdir( $FindBin::Bin, '..' ) );
 
     #
-    # private instance methods
+    # private class methods
     #
 
-    my method _format($file) {
+    my sub _format( $class, $file ) {
         my $perltidyrc = File::Spec->catfile( $root_dir, '.perltidyrc' );
 
         my $error = Perl::Tidy::perltidy(
@@ -34,19 +34,19 @@ class Formatter {
     }
 
     #
-    # public instance method
+    # public class method
     #
 
-    method run() {
+    sub run($class) {
         my @files = `git -C "$root_dir" ls-files `;
         chomp @files;
         foreach my $f (@files) {
             if ( any { $f =~ $_ } @target_patterns ) {
-                $self->&_format($f);
+                $class->&_format($f);
             }
         }
         say "Done $#files files.";
     }
 }
 
-Formatter->new->run;
+Formatter->run;
