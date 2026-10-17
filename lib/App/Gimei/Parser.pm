@@ -82,7 +82,7 @@ class App::Gimei::Parser {
                 $params{gender} = $token;
             }
             $params{word_subtype} = $self->&_subtype_name( \@tokens );
-        } elsif ( $token eq 'address' ) {    # TYPE_ADDRESS
+        } elsif ( $token eq 'address' ) {                                      # TYPE_ADDRESS
             $params{word_class}   = "Data::Gimei::Address";
             $params{word_subtype} = $self->&_subtype_address( \@tokens );
         } else {
@@ -106,7 +106,7 @@ class App::Gimei::Parser {
     # public class methods
     #
 
-    sub parse ($class, $aref) {
+    sub parse ( $class, $aref ) {
         my $p = $class->new();
 
         my $generators = App::Gimei::Generators->new();

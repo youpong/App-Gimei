@@ -11,7 +11,7 @@ class Formatter {
 
     my @patterns = ( qr/.+\.pl$/, qr/.+\.pm$/, qr/.+\.t$/, qr/^cpanfile$/ );
 
-    field $root_dir : param = undef;
+    field $root_dir :param = undef;
 
     ADJUST {
         $root_dir = abs_path( File::Spec->catdir( $FindBin::Bin, '..' ) );

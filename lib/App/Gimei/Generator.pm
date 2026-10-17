@@ -10,12 +10,11 @@ class App::Gimei::Generator {
     # instance variables
     #
 
-    field $word_class   : param : reader;          # Name or Address
-    field $word_subtype : param : reader = undef;  # 'gender', 'surname', 'forename',
+    field $word_class   :param :reader;            # Name or Address
+    field $word_subtype :param :reader = undef;    # 'gender', 'surname', 'forename',
                                                    # 'prefecture', 'city', 'town' or undef
-    field $rendering    : param : reader =
-      'kanji';    # 'kanji', 'hiragana', 'katakana' or 'romaji'
-    field $gender : param : reader = undef;    # 'name', 'male', 'female' or undef
+    field $rendering    :param :reader = 'kanji';  # 'kanji', 'hiragana', 'katakana' or 'romaji'
+    field $gender       :param :reader = undef;    # 'name', 'male', 'female' or undef
 
     #
     # instance methods

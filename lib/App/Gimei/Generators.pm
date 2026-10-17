@@ -10,7 +10,7 @@ class App::Gimei::Generators {
     # instance variables
     #
 
-    field $body : param = [];
+    field $body :param = [];
 
     #
     # instance methods

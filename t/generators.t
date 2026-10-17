@@ -22,10 +22,8 @@ describe "App::Gimei::Generators" => sub {
         my $word_class = "Data::Gimei::Name";
         my $generators = App::Gimei::Generators->new();
 
-        $generators->add_generator(
-            App::Gimei::Generator->new( word_class => $word_class ) );
-        $generators->add_generator(
-            App::Gimei::Generator->new( word_class => $word_class ) );
+        $generators->add_generator( App::Gimei::Generator->new( word_class => $word_class ) );
+        $generators->add_generator( App::Gimei::Generator->new( word_class => $word_class ) );
 
         my @words = $generators->execute();
 

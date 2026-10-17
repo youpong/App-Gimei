@@ -71,7 +71,7 @@ class App::Gimei::Runner {
             push @args, 'name:kanji';
         }
 
-        my $generators = App::Gimei::Parser->parse(\@args);
+        my $generators = App::Gimei::Parser->parse( \@args );
 
         $self->&_semantic_analysis($generators);
 

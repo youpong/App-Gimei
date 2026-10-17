@@ -14,10 +14,9 @@ my @tests = (
     {
         Name                   => 'address->romaji',
         args                   => ['address:romaji'],
-        expected_error_message =>
-          "Error: rendering romaji is not supported for address\n",
-        expected_stdout => '',
-        expected_stderr => '',
+        expected_error_message => "Error: rendering romaji is not supported for address\n",
+        expected_stdout        => '',
+        expected_stderr        => '',
     },
     {
         Name                   => 'gender',
@@ -50,10 +49,9 @@ my @tests = (
     {
         Name                   => 'unknown rendering',
         args                   => ['address:prefecture:romaji'],
-        expected_error_message =>
-          "Error: rendering romaji is not supported for address\n",
-        expected_stdout => '',
-        expected_stderr => '',
+        expected_error_message => "Error: rendering romaji is not supported for address\n",
+        expected_stdout        => '',
+        expected_stderr        => '',
     },
 );
 run(@tests);

@@ -11,10 +11,10 @@ class t::CLI {
     # instance variables
     #
 
-    field $stdout        : param : reader;
-    field $stderr        : param : reader;
-    field $exit_code     : param : reader;
-    field $error_message : param : reader;
+    field $stdout        :param :reader;
+    field $stderr        :param :reader;
+    field $exit_code     :param :reader;
+    field $error_message :param :reader;
 
     #
     # class methods
